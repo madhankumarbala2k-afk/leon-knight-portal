@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>404 — Page Not Found | LEON-KNIGHT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .error-page {
+      min-height: 100svh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 24px;
+      flex-direction: column;
+      gap: 0;
+    }
+    .error-num {
+      font-size: clamp(6rem, 20vw, 12rem);
+      font-weight: 900;
+      letter-spacing: -0.06em;
+      line-height: 1;
+      background: linear-gradient(135deg, #2563EB 0%, #7C3AED 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+    .error-title {
+      font-size: clamp(1.25rem, 4vw, 2rem);
+      font-weight: 800;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      letter-spacing: -0.03em;
+    }
+    .error-desc {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      max-width: 440px;
+      line-height: 1.7;
+      margin-bottom: 36px;
+    }
+    .error-actions { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+    .error-icon {
+      font-size: 3rem;
+      margin-bottom: 8px;
+      animation: wobble 3s ease-in-out infinite;
+    }
+    @keyframes wobble {
+      0%, 100% { transform: rotate(-3deg); }
+      50% { transform: rotate(3deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar" style="position:fixed;top:0;left:0;right:0;z-index:1000;height:70px;background:rgba(255,255,255,0.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);">
+    <div class="nav-container" style="max-width:1200px;margin:0 auto;padding:0 24px;height:100%;display:flex;align-items:center;justify-content:space-between;">
+      <a href="index.html" class="nav-logo">
+        <img src="logo.jpg" alt="LEON-KNIGHT Logo" style="width:36px;height:36px;object-fit:contain;border-radius:8px;" />
+        <span style="font-size:1rem;font-weight:800;color:var(--text-primary);letter-spacing:-0.03em;margin-left:8px;">LEON-KNIGHT</span>
+      </a>
+      <a href="index.html" class="btn-primary">← Back to Home</a>
+    </div>
+  </nav>
+
+  <main style="padding-top:70px;">
+    <div class="error-page">
+      <div class="error-icon">🤖</div>
+      <div class="error-num">404</div>
+      <h1 class="error-title">Oops! Page Not Found</h1>
+      <p class="error-desc">The page you're looking for doesn't exist or has been moved. Our AI searched everywhere — even in the future — but couldn't find it.</p>
+      <div class="error-actions">
+        <a href="index.html" class="btn-primary btn-lg">
+          Go to Homepage
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </a>
+        <a href="index.html#products" class="btn-outline btn-lg">View Products</a>
+        <a href="index.html#contact" class="btn-outline btn-lg">Contact Us</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="LEON-KNIGHT is an AI-first technology company building intelligent products for students, professionals, startups and businesses." />
+  <meta name="keywords" content="LEON-KNIGHT, AI, artificial intelligence, career, aptitude, resume, interview, LMS, recruitment, analytics" />
+  <meta name="author" content="LEON-KNIGHT" />
+  <meta property="og:title" content="LEON-KNIGHT — Building the Future with AI" />
+  <meta property="og:description" content="AI-powered products for students, professionals, startups and businesses." />
+  <meta property="og:type" content="website" />
+  <title>LEON-KNIGHT — Building the Future with AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- LOADING SCREEN -->
+  <div id="loading-screen" role="status" aria-label="Loading LEON-KNIGHT">
+    <div class="loader-wrap">
+      <div class="loader-logo">
+        <img src="logo.jpg" alt="LEON-KNIGHT" class="loader-img" />
+      </div>
+      <div class="loader-bar"><div class="loader-progress"></div></div>
+      <p class="loader-text">Initializing AI Systems…</p>
+    </div>
+  </div>
+
+  <!-- BACK TO TOP -->
+  <button id="back-to-top" aria-label="Back to top" title="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <!-- SEARCH OVERLAY -->
+  <div id="search-overlay" class="search-overlay" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="search-container">
+      <div class="search-header">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="search-input" placeholder="Search products, pages, articles…" autocomplete="off" />
+        <button id="close-search" aria-label="Close search">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div id="search-results" class="search-results"></div>
+      <div class="search-hints">
+        <span>Try: "AI Career", "Dashboard", "About", "Blog"</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="#home" class="nav-logo" aria-label="LEON-KNIGHT Home">
+        <span class="logo-icon">
+          <img src="logo.jpg" alt="LEON-KNIGHT Logo" class="nav-logo-img" />
+        </span>
+        <span class="logo-text">LEON-KNIGHT</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links" role="menubar">
+        <li role="none"><a href="#home" class="nav-link active" role="menuitem">Home</a></li>
+        <li role="none"><a href="#products" class="nav-link" role="menuitem">Products</a></li>
+        <li role="none"><a href="#dashboard" class="nav-link" role="menuitem">Dashboard</a></li>
+        <li role="none"><a href="#about" class="nav-link" role="menuitem">About</a></li>
+        <li role="none"><a href="#leadership" class="nav-link" role="menuitem">Leadership</a></li>
+        <li role="none"><a href="#careers" class="nav-link" role="menuitem">Careers</a></li>
+        <li role="none"><a href="#blog" class="nav-link" role="menuitem">Blog</a></li>
+        <li role="none"><a href="#contact" class="nav-link" role="menuitem">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <button id="search-btn" class="nav-search-btn" aria-label="Open search">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </button>
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <a href="login.html" class="btn-ghost" id="login-btn">Login</a>
+        <a href="login.html" class="btn-primary" id="get-started-btn">Get Started</a>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div id="mobile-menu" class="mobile-menu" role="dialog" aria-label="Mobile navigation">
+    <ul>
+      <li><a href="#home" class="mobile-nav-link">Home</a></li>
+      <li><a href="#products" class="mobile-nav-link">Products</a></li>
+      <li><a href="#dashboard" class="mobile-nav-link">Dashboard</a></li>
+      <li><a href="#about" class="mobile-nav-link">About</a></li>
+      <li><a href="#leadership" class="mobile-nav-link">Leadership</a></li>
+      <li><a href="#careers" class="mobile-nav-link">Careers</a></li>
+      <li><a href="#blog" class="mobile-nav-link">Blog</a></li>
+      <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
+      <li><a href="login.html" class="btn-ghost mobile-login">Login</a></li>
+      <li><a href="login.html" class="btn-primary mobile-start">Get Started</a></li>
+    </ul>
+  </div>
+
+  <main id="main-content">
+
+    <!-- HERO SECTION -->
+    <section id="home" class="hero-section">
+      <div class="hero-bg">
+        <div class="hero-blob blob-1"></div>
+        <div class="hero-blob blob-2"></div>
+        <div class="hero-grid"></div>
+      </div>
+      <div class="container hero-container">
+        <div class="hero-content" data-animate="fade-up">
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            <span>AI-First Technology Company</span>
+          </div>
+          <h1 class="hero-title">Building the<br /><span class="text-gradient">Future with AI.</span></h1>
+          <p class="hero-sub">LEON-KNIGHT creates intelligent AI-powered products that help students, professionals, startups and businesses learn faster, work smarter and grow successfully.</p>
+          <div class="hero-actions">
+            <a href="#products" class="btn-primary btn-lg">
+              Explore Products
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+            <a href="#dashboard" class="btn-outline btn-lg">
+              View Dashboard
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            </a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat-item">
+              <span class="stat-num" data-count="10">0</span><span class="stat-plus">+</span>
+              <span class="stat-label">AI Products</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-num" data-count="50">0</span><span class="stat-plus">K+</span>
+              <span class="stat-label">Users</span>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+              <span class="stat-num" data-count="99">0</span><span class="stat-plus">%</span>
+              <span class="stat-label">Uptime</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual" data-animate="fade-left">
+          <div class="hero-dashboard">
+            <div class="dash-header">
+              <div class="dash-dots"><span></span><span></span><span></span></div>
+              <span class="dash-title">LEON-KNIGHT Dashboard</span>
+              <div class="dash-status"><span class="status-dot"></span> Live</div>
+            </div>
+            <div class="dash-body">
+              <div class="dash-sidebar">
+                <div class="dash-nav-item active">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                  <span>Overview</span>
+                </div>
+                <div class="dash-nav-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                  <span>Analytics</span>
+                </div>
+                <div class="dash-nav-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  <span>Careers</span>
+                </div>
+                <div class="dash-nav-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                  <span>Resume</span>
+                </div>
+                <div class="dash-nav-item">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span>Calendar</span>
+                </div>
+              </div>
+              <div class="dash-main">
+                <div class="dash-metrics">
+                  <div class="metric-card">
+                    <div class="metric-icon blue">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+                    </div>
+                    <div>
+                      <div class="metric-val">94%</div>
+                      <div class="metric-lbl">Career Score</div>
+                    </div>
+                  </div>
+                  <div class="metric-card">
+                    <div class="metric-icon green">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                    </div>
+                    <div>
+                      <div class="metric-val">287</div>
+                      <div class="metric-lbl">Tasks Done</div>
+                    </div>
+                  </div>
+                  <div class="metric-card">
+                    <div class="metric-icon purple">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </div>
+                    <div>
+                      <div class="metric-val">12</div>
+                      <div class="metric-lbl">AI Insights</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="dash-chart">
+                  <div class="chart-label">Performance</div>
+                  <div class="chart-bars">
+                    <div class="chart-bar" style="height:45%"><span>Mon</span></div>
+                    <div class="chart-bar" style="height:70%"><span>Tue</span></div>
+                    <div class="chart-bar" style="height:55%"><span>Wed</span></div>
+                    <div class="chart-bar active" style="height:88%"><span>Thu</span></div>
+                    <div class="chart-bar" style="height:65%"><span>Fri</span></div>
+                    <div class="chart-bar" style="height:40%"><span>Sat</span></div>
+                    <div class="chart-bar" style="height:75%"><span>Sun</span></div>
+                  </div>
+                </div>
+                <div class="dash-ai-row">
+                  <div class="ai-chip">
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                    AI Assistant active
+                  </div>
+                  <div class="notif-chip">3 new notifications</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="hero-float-card card-1">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            <div><div class="fc-val">+47%</div><div class="fc-lbl">Growth Rate</div></div>
+          </div>
+          <div class="hero-float-card card-2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <div><div class="fc-val">AI Ready</div><div class="fc-lbl">All Systems Go</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS SECTION -->
+    <section id="products" class="section products-section">
+      <div class="container">
+        <div class="section-header" data-animate="fade-up">
+          <div class="section-badge">Our Products</div>
+          <h2 class="section-title">Intelligent Tools for<br />Every Ambition</h2>
+          <p class="section-sub">From career planning to enterprise analytics — LEON-KNIGHT AI products power every stage of your journey.</p>
+        </div>
+        <div class="products-grid" id="products-grid">
+
+          <div class="product-card" data-animate="fade-up" data-delay="0">
+            <div class="product-icon-wrap" style="--icon-color:#2563EB; --icon-bg:#EFF6FF;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--icon-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="product-tag">Career AI</div>
+            <h3 class="product-title">LEON-KNIGHT AI Career</h3>
+            <p class="product-desc">AI Career Planner with personalized roadmaps, career guidance and intelligent job recommendations.</p>
+            <a href="#" class="product-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </div>
+
+          <div class="product-card" data-animate="fade-up" data-delay="80">
+            <div class="product-icon-wrap" style="--icon-color:#7C3AED; --icon-bg:#F5F3FF;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--icon-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </div>
+            <div class="product-tag">Aptitude</div>
+            <h3 class="product-title">LEON-KNIGHT AI Aptitude</h3>
+            <p class="product-desc">AI-powered aptitude preparation platform with adaptive mock tests and deep performance analytics.</p>
+            <a href="#" class="product-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </div>
+
+          <div class="product-card" data-animate="fade-up" data-delay="160">
+            <div class="product-icon-wrap" style="--icon-color:#0891B2; --icon-bg:#ECFEFF;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--icon-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+            <div class="product-tag">Resume</div>
+            <h3 class="product-title">LEON-KNIGHT Resume AI</h3>
+            <p class="product-desc">Professional ATS Resume Builder and AI-powered Resume Analyzer to maximize your job applications.</p>
+            <a href="#" class="product-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </div>
+
+          <div class="product-card" data-animate="fade-up" data-delay="0">
+            <div class="product-icon-wrap" style="--icon-color:#DC2626; --icon-bg:#FFF5F5;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--icon-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="product-tag">Interview</div>
+            <h3 class="product-title">LEON-KNIGHT Interview AI</h3>
+            <p class="product-desc">AI-powered mock interview platform with real-time feedback, scoring and improvement suggestions.</p>
+            <a href="#" class="product-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </div>
+
+          <div class="product-card" data-animate="fade-up" data-delay="80">
+            <div class="product-icon-wrap" style="--icon-color:#059669; --icon-bg:#F0FDF4;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--icon-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <div class="product-tag">Learning</div>
+            <h3 class="product-title">LEON-KNIGHT LMS</h3>
+            <p class="product-desc">Learning Management System for students and organizations with AI-guided courses and progress tracking.</p>
+            <a href="#" class="product-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </div>
+
+          <div class="product-card" data-animate="fade-up" data-delay="160">
+            <div class="product-icon-wrap" style="--icon-color:#D97706; --icon-bg:#FFFBEB;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--icon-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+            </div>
+            <div class="product-tag">Recruitment</div>
+            <h3 class="product-title">LEON-KNIGHT Recruit</h3>
+            <p class="product-desc">AI recruitment platform for companies and HR teams to streamline hiring with smart candidate screening.</p>
+            <a href="#" class="product-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </div>
+
+          <div class="product-card product-card--featured" data-animate="fade-up" data-delay="0">
+            <div class="product-icon-wrap" style="--icon-color:#2563EB; --icon-bg:#EFF6FF;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--icon-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+            </div>
+            <div class="product-tag">Analytics</div>
+            <h3 class="product-title">LEON-KNIGHT Analytics</h3>
+            <p class="product-desc">Business analytics dashboard with AI-generated reports, real-time insights and predictive intelligence.</p>
+            <a href="#" class="product-link">Learn More <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- DASHBOARD PREVIEW -->
+    <section id="dashboard" class="section dashboard-section">
+      <div class="container">
+        <div class="section-header" data-animate="fade-up">
+          <div class="section-badge">Platform</div>
+          <h2 class="section-title">Powerful Dashboard</h2>
+          <p class="section-sub">One unified workspace for all your AI tools, analytics, and progress — beautifully designed.</p>
+        </div>
+        <div class="dashboard-mockup" data-animate="fade-up">
+          <div class="mockup-bar">
+            <div class="mockup-dots"><span></span><span></span><span></span></div>
+            <div class="mockup-url">app.leon-knight.ai/dashboard</div>
+            <div class="mockup-icons">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+          </div>
+          <div class="mockup-content">
+            <!-- Sidebar -->
+            <div class="mockup-sidebar">
+              <div class="msb-logo"><img src="logo.jpg" alt="LK" style="width:28px;height:28px;object-fit:cover;border-radius:6px;" /></div>
+              <div class="msb-items">
+                <div class="msb-item active" title="Overview">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                  <span>Overview</span>
+                </div>
+                <div class="msb-item" title="Analytics">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                  <span>Analytics</span>
+                </div>
+                <div class="msb-item" title="Career">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
+                  <span>Career</span>
+                </div>
+                <div class="msb-item" title="AI Assistant">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  <span>AI Chat</span>
+                </div>
+                <div class="msb-item" title="Tasks">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                  <span>Tasks</span>
+                </div>
+                <div class="msb-item" title="Calendar">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                  <span>Calendar</span>
+                </div>
+                <div class="msb-item" title="Settings">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                  <span>Settings</span>
+                </div>
+              </div>
+            </div>
+            <!-- Main area -->
+            <div class="mockup-main">
+              <div class="mockup-topbar">
+                <div>
+                  <div class="topbar-greeting">Good afternoon, Madhan 👋</div>
+                  <div class="topbar-sub">Here's your AI summary for today</div>
+                </div>
+                <div class="topbar-actions">
+                  <div class="notif-bell">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                    <span class="notif-count">3</span>
+                  </div>
+                  <div class="user-avatar">MK</div>
+                </div>
+              </div>
+
+              <!-- KPI Row -->
+              <div class="mockup-kpis">
+                <div class="kpi-card">
+                  <div class="kpi-icon blue"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+                  <div class="kpi-val">94%</div>
+                  <div class="kpi-lbl">Career Score</div>
+                  <div class="kpi-change positive">↑ 12%</div>
+                </div>
+                <div class="kpi-card">
+                  <div class="kpi-icon purple"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+                  <div class="kpi-val">87/100</div>
+                  <div class="kpi-lbl">Resume Score</div>
+                  <div class="kpi-change positive">↑ 5pts</div>
+                </div>
+                <div class="kpi-card">
+                  <div class="kpi-icon green"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+                  <div class="kpi-val">24h</div>
+                  <div class="kpi-lbl">Study Time</div>
+                  <div class="kpi-change positive">↑ 3h</div>
+                </div>
+                <div class="kpi-card">
+                  <div class="kpi-icon orange"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+                  <div class="kpi-val">12</div>
+                  <div class="kpi-lbl">AI Insights</div>
+                  <div class="kpi-change neutral">→ New</div>
+                </div>
+              </div>
+
+              <!-- Chart + Activities -->
+              <div class="mockup-lower">
+                <div class="mockup-chart-wrap">
+                  <div class="chart-header-row">
+                    <span class="chart-title-text">Performance Graph</span>
+                    <div class="chart-tabs">
+                      <button class="chart-tab active">Week</button>
+                      <button class="chart-tab">Month</button>
+                    </div>
+                  </div>
+                  <div class="big-chart-bars">
+                    <div class="bcb" style="height:50%"><span>M</span></div>
+                    <div class="bcb" style="height:75%"><span>T</span></div>
+                    <div class="bcb" style="height:60%"><span>W</span></div>
+                    <div class="bcb active" style="height:92%"><span>T</span></div>
+                    <div class="bcb" style="height:68%"><span>F</span></div>
+                    <div class="bcb" style="height:42%"><span>S</span></div>
+                    <div class="bcb" style="height:80%"><span>S</span></div>
+                  </div>
+                </div>
+                <div class="mockup-activities">
+                  <div class="act-title">Recent Activities</div>
+                  <div class="act-item">
+                    <div class="act-dot blue"></div>
+                    <div class="act-info"><div class="act-name">Resume analyzed</div><div class="act-time">2m ago</div></div>
+                  </div>
+                  <div class="act-item">
+                    <div class="act-dot purple"></div>
+                    <div class="act-info"><div class="act-name">Mock interview done</div><div class="act-time">1h ago</div></div>
+                  </div>
+                  <div class="act-item">
+                    <div class="act-dot green"></div>
+                    <div class="act-info"><div class="act-name">LMS Module complete</div><div class="act-time">3h ago</div></div>
+                  </div>
+                  <div class="act-item">
+                    <div class="act-dot orange"></div>
+                    <div class="act-info"><div class="act-name">Aptitude test scored 88%</div><div class="act-time">5h ago</div></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- AI Chat Quick -->
+              <div class="mockup-ai-bar">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                <span>Ask AI anything about your career, resume, or studies…</span>
+                <button class="ai-send-btn">Send</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dashboard-cta" data-animate="fade-up">
+          <a href="#" class="btn-primary btn-lg">
+            Open Dashboard
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY LEON-KNIGHT -->
+    <section id="why" class="section why-section">
+      <div class="container">
+        <div class="section-header" data-animate="fade-up">
+          <div class="section-badge">Why Us</div>
+          <h2 class="section-title">Why LEON-KNIGHT?</h2>
+          <p class="section-sub">Built for performance, security, and scale — from day one.</p>
+        </div>
+        <div class="why-grid">
+          <div class="why-card" data-animate="fade-up" data-delay="0">
+            <div class="why-icon" style="--c:#2563EB; --bg:#EFF6FF;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--c)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            </div>
+            <h3>AI Powered</h3>
+            <p>Every product is built on advanced AI models delivering personalized, intelligent experiences that learn and adapt with you.</p>
+          </div>
+          <div class="why-card" data-animate="fade-up" data-delay="100">
+            <div class="why-icon" style="--c:#059669; --bg:#F0FDF4;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--c)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3>Secure Platform</h3>
+            <p>Enterprise-grade security with end-to-end encryption, SOC 2 compliance, and rigorous data privacy standards protecting all users.</p>
+          </div>
+          <div class="why-card" data-animate="fade-up" data-delay="200">
+            <div class="why-icon" style="--c:#7C3AED; --bg:#F5F3FF;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--c)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            </div>
+            <h3>Scalable Infrastructure</h3>
+            <p>Cloud-native architecture that scales effortlessly from individual users to enterprise deployments with zero downtime.</p>
+          </div>
+          <div class="why-card" data-animate="fade-up" data-delay="300">
+            <div class="why-icon" style="--c:#D97706; --bg:#FFFBEB;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--c)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <h3>Fast Performance</h3>
+            <p>Optimized for sub-second response times. Our edge-deployed AI delivers instant results regardless of your location.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT US -->
+    <section id="about" class="section about-section">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-content" data-animate="fade-right">
+            <div class="section-badge">About Us</div>
+            <h2 class="section-title" style="text-align:left;">About LEON-KNIGHT</h2>
+            <p class="about-desc">LEON-KNIGHT is an AI-first technology company dedicated to building innovative products that simplify education, careers, hiring and business growth. We believe artificial intelligence should empower everyone to achieve more through smart, reliable and accessible technology.</p>
+            <div class="mission-vision">
+              <div class="mv-card">
+                <div class="mv-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                </div>
+                <div>
+                  <div class="mv-label">Mission</div>
+                  <div class="mv-text">Empower students, professionals and businesses through intelligent AI solutions.</div>
+                </div>
+              </div>
+              <div class="mv-card">
+                <div class="mv-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </div>
+                <div>
+                  <div class="mv-label">Vision</div>
+                  <div class="mv-text">Build India's most trusted AI ecosystem for everyone.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="about-visual" data-animate="fade-left">
+            <div class="about-stats-wrap">
+              <div class="about-stat">
+                <div class="as-num">7+</div>
+                <div class="as-lbl">AI Products</div>
+              </div>
+              <div class="about-stat">
+                <div class="as-num">50K+</div>
+                <div class="as-lbl">Active Users</div>
+              </div>
+              <div class="about-stat">
+                <div class="as-num">2026</div>
+                <div class="as-lbl">Founded</div>
+              </div>
+              <div class="about-stat">
+                <div class="as-num">India</div>
+                <div class="as-lbl">HQ</div>
+              </div>
+            </div>
+            <div class="about-values">
+              <div class="value-pill">🚀 Innovation First</div>
+              <div class="value-pill">🔒 Privacy by Design</div>
+              <div class="value-pill">🌍 India-Made</div>
+              <div class="value-pill">🤝 Community Driven</div>
+              <div class="value-pill">⚡ Always Improving</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEADERSHIP -->
+    <section id="leadership" class="section leadership-section">
+      <div class="container">
+        <div class="section-header" data-animate="fade-up">
+          <div class="section-badge">Leadership</div>
+          <h2 class="section-title">Leadership Team</h2>
+          <p class="section-sub">The visionaries building the future of AI at LEON-KNIGHT.</p>
+        </div>
+        <div class="leadership-grid">
+
+          <div class="leader-card" data-animate="fade-up" data-delay="0">
+            <div class="leader-avatar-wrap">
+              <img src="team-madhan.jpg" alt="Madhan Kumar — Founder & CEO" class="leader-photo" />
+              <div class="leader-badge-role">Founder &amp; CEO</div>
+            </div>
+            <div class="leader-info">
+              <h3 class="leader-name">Madhan Kumar</h3>
+              <div class="leader-role">Founder &amp; Chief Executive Officer</div>
+              <p class="leader-bio">Founder of LEON-KNIGHT, leading the company's vision, innovation and strategic growth while building AI-powered products for the future.</p>
+              <div class="leader-actions">
+                <a href="https://www.linkedin.com/in/leon-knight-76967341a/" target="_blank" rel="noopener noreferrer" class="leader-btn" aria-label="Madhan Kumar LinkedIn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  LinkedIn
+                </a>
+                <a href="mailto:madhan@leon-knight.ai" class="leader-btn" aria-label="Email Madhan Kumar">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  Email
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="leader-card" data-animate="fade-up" data-delay="120">
+            <div class="leader-avatar-wrap">
+              <img src="team-sanjay.jpg" alt="Sanjay — Chief Technology Officer" class="leader-photo" />
+              <div class="leader-badge-role">CTO</div>
+            </div>
+            <div class="leader-info">
+              <h3 class="leader-name">Sanjay</h3>
+              <div class="leader-role">Chief Technology Officer</div>
+              <p class="leader-bio">Leads technology strategy, AI engineering, product architecture and innovation across all LEON-KNIGHT platforms.</p>
+              <div class="leader-actions">
+                <a href="#" class="leader-btn" aria-label="Sanjay LinkedIn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  LinkedIn
+                </a>
+                <a href="mailto:sanjay@leon-knight.ai" class="leader-btn" aria-label="Email Sanjay">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  Email
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="leader-card" data-animate="fade-up" data-delay="240">
+            <div class="leader-avatar-wrap">
+              <img src="team-vinoth.jpg" alt="Vinoth Kumar — Chief Operating Officer" class="leader-photo" />
+              <div class="leader-badge-role">COO</div>
+            </div>
+            <div class="leader-info">
+              <h3 class="leader-name">Vinoth Kumar</h3>
+              <div class="leader-role">Chief Operating Officer</div>
+              <p class="leader-bio">Leads business operations, execution, partnerships and organizational growth while ensuring efficient delivery of products and services.</p>
+              <div class="leader-actions">
+                <a href="#" class="leader-btn" aria-label="Vinoth Kumar LinkedIn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                  LinkedIn
+                </a>
+                <a href="mailto:vinoth@leon-knight.ai" class="leader-btn" aria-label="Email Vinoth Kumar">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  Email
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- JOURNEY / TIMELINE -->
+    <section id="journey" class="section journey-section">
+      <div class="container">
+        <div class="section-header" data-animate="fade-up">
+          <div class="section-badge">Our Journey</div>
+          <h2 class="section-title">Built with Purpose,<br />Grown with Vision</h2>
+        </div>
+        <div class="timeline">
+          <div class="timeline-year" data-animate="fade-right">
+            <div class="tl-year-badge">2026</div>
+            <div class="tl-events">
+              <div class="tl-event">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                  <div class="tl-title">Founded LEON-KNIGHT</div>
+                  <div class="tl-desc">The company was born with a mission to democratize AI for everyone.</div>
+                </div>
+              </div>
+              <div class="tl-event">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                  <div class="tl-title">Launch: AI Career</div>
+                  <div class="tl-desc">First product — personalized AI career planner goes live.</div>
+                </div>
+              </div>
+              <div class="tl-event">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                  <div class="tl-title">Launch: AI Aptitude</div>
+                  <div class="tl-desc">AI-powered aptitude platform for competitive exam preparation.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-year" data-animate="fade-right">
+            <div class="tl-year-badge upcoming">2027</div>
+            <div class="tl-events">
+              <div class="tl-event upcoming">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                  <div class="tl-title">Launch: Resume AI</div>
+                  <div class="tl-desc">ATS-optimized resume builder and AI analyzer launches.</div>
+                </div>
+              </div>
+              <div class="tl-event upcoming">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                  <div class="tl-title">Launch: Interview AI</div>
+                  <div class="tl-desc">Real-time AI mock interview platform with instant feedback.</div>
+                </div>
+              </div>
+              <div class="tl-event upcoming">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                  <div class="tl-title">Launch: Recruit Platform</div>
+                  <div class="tl-desc">Enterprise-grade AI hiring platform for HR teams.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="timeline-year" data-animate="fade-right">
+            <div class="tl-year-badge upcoming">2028</div>
+            <div class="tl-events">
+              <div class="tl-event upcoming">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                  <div class="tl-title">Global Expansion</div>
+                  <div class="tl-desc">LEON-KNIGHT expands beyond India to serve global markets.</div>
+                </div>
+              </div>
+              <div class="tl-event upcoming">
+                <div class="tl-dot"></div>
+                <div class="tl-content">
+                  <div class="tl-title">Enterprise AI Solutions</div>
+                  <div class="tl-desc">Full enterprise AI suite for large-scale business transformation.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="section testimonials-section">
+      <div class="container">
+        <div class="section-header" data-animate="fade-up">
+          <div class="section-badge">Testimonials</div>
+          <h2 class="section-title">Trusted by Thousands</h2>
+          <p class="section-sub">See what our users and enterprise clients say about LEON-KNIGHT.</p>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testimonial-card" data-animate="fade-up" data-delay="0">
+            <div class="testi-quote">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="#2563EB" opacity="0.15"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
+            </div>
+            <p class="testi-text">"LEON-KNIGHT AI Career completely changed how I planned my professional journey. The personalized roadmaps and AI insights are absolutely game-changing."</p>
+            <div class="testi-author">
+              <div class="testi-avatar">RK</div>
+              <div>
+                <div class="testi-name">Rahul Kumar</div>
+                <div class="testi-title">Software Engineer, Bangalore</div>
+              </div>
+              <div class="testi-stars">★★★★★</div>
+            </div>
+          </div>
+          <div class="testimonial-card" data-animate="fade-up" data-delay="120">
+            <div class="testi-quote">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="#7C3AED" opacity="0.15"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
+            </div>
+            <p class="testi-text">"The Resume AI tool gave our HR team unprecedented efficiency. Screening candidates that used to take days now takes minutes with incredible accuracy."</p>
+            <div class="testi-author">
+              <div class="testi-avatar">PS</div>
+              <div>
+                <div class="testi-name">Priya Sharma</div>
+                <div class="testi-title">HR Manager, Chennai</div>
+              </div>
+              <div class="testi-stars">★★★★★</div>
+            </div>
+          </div>
+          <div class="testimonial-card" data-animate="fade-up" data-delay="240">
+            <div class="testi-quote">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="#059669" opacity="0.15"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/></svg>
+            </div>
+            <p class="testi-text">"Implementing LEON-KNIGHT LMS for our organization was the best decision we made. 500 employees now upskill continuously through AI-guided learning paths."</p>
+            <div class="testi-author">
+              <div class="testi-avatar">AV</div>
+              <div>
+                <div class="testi-name">Arun Venkat</div>
+                <div class="testi-title">L&amp;D Head, TechCorp India</div>
+              </div>
+              <div class="testi-stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAREERS -->
+    <section id="careers" class="section careers-section">
+      <div class="container">
+        <div class="careers-inner" data-animate="fade-up">
+          <div class="careers-left">
+            <div class="section-badge">Careers</div>
+            <h2 class="section-title" style="text-align:left; margin-bottom:1rem;">Build the Future<br />with Us</h2>
+            <p style="color:var(--text-secondary); font-size:1.05rem; line-height:1.7; margin-bottom:2rem;">Join LEON-KNIGHT and help shape the future of artificial intelligence. We're looking for passionate builders, thinkers and innovators.</p>
+            <div class="careers-perks">
+              <div class="perk-item"><span class="perk-icon">🌟</span> Competitive Compensation</div>
+              <div class="perk-item"><span class="perk-icon">🏡</span> Remote-First Culture</div>
+              <div class="perk-item"><span class="perk-icon">🚀</span> Fast Career Growth</div>
+              <div class="perk-item"><span class="perk-icon">🧠</span> Work on Real AI Products</div>
+            </div>
+            <a href="#" class="btn-primary btn-lg" style="margin-top:2.5rem;">
+              View Open Positions
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+          <div class="careers-right">
+            <div class="job-cards">
+              <div class="job-card">
+                <div class="job-role">AI/ML Engineer</div>
+                <div class="job-meta"><span class="job-type">Full-time</span><span class="job-loc">Remote · India</span></div>
+              </div>
+              <div class="job-card">
+                <div class="job-role">Frontend Developer</div>
+                <div class="job-meta"><span class="job-type">Full-time</span><span class="job-loc">Remote · India</span></div>
+              </div>
+              <div class="job-card">
+                <div class="job-role">Product Designer</div>
+                <div class="job-meta"><span class="job-type">Full-time</span><span class="job-loc">Remote · India</span></div>
+              </div>
+              <div class="job-card">
+                <div class="job-role">Marketing Manager</div>
+                <div class="job-meta"><span class="job-type">Full-time</span><span class="job-loc">Remote · India</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BLOG -->
+    <section id="blog" class="section blog-section">
+      <div class="container">
+        <div class="section-header" data-animate="fade-up">
+          <div class="section-badge">Blog</div>
+          <h2 class="section-title">Latest Insights</h2>
+          <p class="section-sub">Thought leadership, product updates, and AI industry insights from the LEON-KNIGHT team.</p>
+        </div>
+        <div class="blog-grid">
+          <div class="blog-card" data-animate="fade-up" data-delay="0">
+            <div class="blog-img blog-img-1">
+              <span class="blog-category">AI &amp; Careers</span>
+            </div>
+            <div class="blog-body">
+              <div class="blog-meta">
+                <span class="blog-author">Madhan Kumar</span>
+                <span class="blog-date">Jun 15, 2026</span>
+                <span class="blog-read">5 min read</span>
+              </div>
+              <h3 class="blog-title">How AI is Transforming Career Planning in 2026</h3>
+              <p class="blog-excerpt">Discover how AI-powered career tools are reshaping how students and professionals plan, prepare and advance their careers in today's fast-moving job market.</p>
+              <a href="#" class="blog-link">Read Article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+            </div>
+          </div>
+          <div class="blog-card" data-animate="fade-up" data-delay="120">
+            <div class="blog-img blog-img-2">
+              <span class="blog-category">Product</span>
+            </div>
+            <div class="blog-body">
+              <div class="blog-meta">
+                <span class="blog-author">Sanjay</span>
+                <span class="blog-date">Jun 8, 2026</span>
+                <span class="blog-read">7 min read</span>
+              </div>
+              <h3 class="blog-title">Building Scalable AI Products: Lessons from LEON-KNIGHT</h3>
+              <p class="blog-excerpt">A behind-the-scenes look at the architectural decisions, engineering challenges and AI innovations powering LEON-KNIGHT's suite of products.</p>
+              <a href="#" class="blog-link">Read Article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+            </div>
+          </div>
+          <div class="blog-card" data-animate="fade-up" data-delay="240">
+            <div class="blog-img blog-img-3">
+              <span class="blog-category">HR &amp; Recruiting</span>
+            </div>
+            <div class="blog-body">
+              <div class="blog-meta">
+                <span class="blog-author">Vinoth Kumar</span>
+                <span class="blog-date">May 28, 2026</span>
+                <span class="blog-read">6 min read</span>
+              </div>
+              <h3 class="blog-title">The Future of AI Recruitment: Smarter, Faster, Fairer</h3>
+              <p class="blog-excerpt">How modern AI recruiting tools are eliminating bias, speeding up hiring pipelines and helping companies find the right talent at scale.</p>
+              <a href="#" class="blog-link">Read Article <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="section faq-section">
+      <div class="container">
+        <div class="section-header" data-animate="fade-up">
+          <div class="section-badge">FAQ</div>
+          <h2 class="section-title">Frequently Asked Questions</h2>
+          <p class="section-sub">Everything you need to know about LEON-KNIGHT and our products.</p>
+        </div>
+        <div class="faq-list" id="faq-list">
+          <div class="faq-item" data-animate="fade-up">
+            <button class="faq-question" aria-expanded="false" id="faq-1">
+              <span>What is LEON-KNIGHT?</span>
+              <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer" id="faq-1-answer">
+              LEON-KNIGHT is an AI-first technology company that builds intelligent products for students, professionals, startups and businesses. Our suite includes tools for career planning, resume building, aptitude testing, mock interviews, learning management, recruitment and business analytics.
+            </div>
+          </div>
+          <div class="faq-item" data-animate="fade-up">
+            <button class="faq-question" aria-expanded="false" id="faq-2">
+              <span>How does AI Career work?</span>
+              <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer" id="faq-2-answer">
+              LEON-KNIGHT AI Career analyzes your skills, experience, interests and goals to generate a personalized career roadmap. The AI continuously learns from your progress and job market trends to provide updated recommendations, skill gap analysis and job matching tailored specifically to you.
+            </div>
+          </div>
+          <div class="faq-item" data-animate="fade-up">
+            <button class="faq-question" aria-expanded="false" id="faq-3">
+              <span>Is my data secure?</span>
+              <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer" id="faq-3-answer">
+              Absolutely. LEON-KNIGHT employs enterprise-grade security including AES-256 encryption at rest and in transit, strict data privacy policies, regular security audits, and we never sell your personal data to third parties. Your data is yours.
+            </div>
+          </div>
+          <div class="faq-item" data-animate="fade-up">
+            <button class="faq-question" aria-expanded="false" id="faq-4">
+              <span>How do I contact support?</span>
+              <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer" id="faq-4-answer">
+              You can reach our support team via the contact form on this page, email us at support@leon-knight.ai, or use the in-app AI assistant available 24/7. Enterprise customers receive dedicated support with guaranteed response times.
+            </div>
+          </div>
+          <div class="faq-item" data-animate="fade-up">
+            <button class="faq-question" aria-expanded="false" id="faq-5">
+              <span>Do you offer a free trial?</span>
+              <svg class="faq-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+            <div class="faq-answer" id="faq-5-answer">
+              Yes! All LEON-KNIGHT products offer a free tier so you can explore core features without any commitment. Upgrade to premium plans for full AI capabilities, unlimited usage and priority support.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWSLETTER -->
+    <section class="section newsletter-section">
+      <div class="container">
+        <div class="newsletter-inner" data-animate="fade-up">
+          <div class="newsletter-left">
+            <h2 class="newsletter-title">Stay Ahead with AI</h2>
+            <p class="newsletter-sub">Get the latest insights on AI, careers, and product updates — delivered weekly to your inbox.</p>
+          </div>
+          <form class="newsletter-form" id="newsletter-form" aria-label="Newsletter subscription">
+            <div class="newsletter-input-wrap">
+              <input type="email" id="newsletter-email" placeholder="Enter your email address" aria-label="Email address" required />
+              <button type="submit" class="btn-primary" id="newsletter-submit">Subscribe</button>
+            </div>
+            <div class="newsletter-consent">
+              <input type="checkbox" id="nl-consent" required />
+              <label for="nl-consent">I agree to receive emails from LEON-KNIGHT. No spam, unsubscribe anytime.</label>
+            </div>
+            <div id="newsletter-success" class="newsletter-success" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="section contact-section">
+      <div class="container">
+        <div class="section-header" data-animate="fade-up">
+          <div class="section-badge">Contact</div>
+          <h2 class="section-title">Get in Touch</h2>
+          <p class="section-sub">Have questions? We'd love to hear from you. Our team usually responds within 24 hours.</p>
+        </div>
+        <div class="contact-grid">
+          <div class="contact-form-wrap" data-animate="fade-right">
+            <form id="contact-form" class="contact-form" aria-label="Contact form" novalidate>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="contact-name">Full Name *</label>
+                  <input type="text" id="contact-name" name="name" placeholder="Madhan Kumar" required autocomplete="name" />
+                  <span class="form-error" id="name-error"></span>
+                </div>
+                <div class="form-group">
+                  <label for="contact-email">Email *</label>
+                  <input type="email" id="contact-email" name="email" placeholder="you@example.com" required autocomplete="email" />
+                  <span class="form-error" id="email-error"></span>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="contact-phone">Phone</label>
+                  <input type="tel" id="contact-phone" name="phone" placeholder="+91 99999 99999" autocomplete="tel" />
+                </div>
+                <div class="form-group">
+                  <label for="contact-subject">Subject *</label>
+                  <input type="text" id="contact-subject" name="subject" placeholder="Product Inquiry" required />
+                  <span class="form-error" id="subject-error"></span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="contact-message">Message *</label>
+                <textarea id="contact-message" name="message" placeholder="Tell us how we can help you…" rows="5" required></textarea>
+                <span class="form-error" id="message-error"></span>
+              </div>
+              <button type="submit" class="btn-primary btn-lg contact-submit-btn" id="contact-submit">
+                Send Message
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+              </button>
+              <div id="contact-success" class="contact-success" aria-live="polite"></div>
+            </form>
+          </div>
+          <div class="contact-info-wrap" data-animate="fade-left">
+            <div class="contact-info-card">
+              <div class="ci-item">
+                <div class="ci-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <div>
+                  <div class="ci-label">Address</div>
+                  <div class="ci-value">LEON-KNIGHT Technologies Pvt. Ltd.<br />Tamil Nadu, India</div>
+                </div>
+              </div>
+              <div class="ci-item">
+                <div class="ci-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                </div>
+                <div>
+                  <div class="ci-label">Email</div>
+                  <div class="ci-value"><a href="mailto:hello@leon-knight.ai">hello@leon-knight.ai</a></div>
+                </div>
+              </div>
+              <div class="ci-item">
+                <div class="ci-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.59 3.38 2 2 0 0 1 3.56 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.73A16 16 0 0 0 16 16.82l.87-.88a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+                <div>
+                  <div class="ci-label">Phone</div>
+                  <div class="ci-value"><a href="tel:+917598531377">+91 75985 31377</a></div>
+                </div>
+              </div>
+              <div class="maps-placeholder">
+                <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <p>Tamil Nadu, India</p>
+                <span>View on Google Maps →</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#home" class="nav-logo footer-logo" aria-label="LEON-KNIGHT">
+            <span class="logo-icon">
+              <img src="logo.jpg" alt="LEON-KNIGHT Logo" class="nav-logo-img" />
+            </span>
+            <span class="logo-text">LEON-KNIGHT</span>
+          </a>
+          <p class="footer-tagline">Building the Future with AI. India's most trusted AI technology company for students, professionals and businesses.</p>
+          <div class="footer-socials">
+            <a href="https://www.linkedin.com/in/leon-knight-76967341a/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="LinkedIn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/leon_knight_official/" target="_blank" rel="noopener noreferrer" class="social-btn" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" class="social-btn" aria-label="GitHub">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-links-grid">
+          <div class="footer-col">
+            <h4>Products</h4>
+            <ul>
+              <li><a href="#">AI Career</a></li>
+              <li><a href="#">AI Aptitude</a></li>
+              <li><a href="#">Resume AI</a></li>
+              <li><a href="#">Interview AI</a></li>
+              <li><a href="#">LMS</a></li>
+              <li><a href="#">Recruit</a></li>
+              <li><a href="#">Analytics</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Company</h4>
+            <ul>
+              <li><a href="#about">About</a></li>
+              <li><a href="#leadership">Leadership</a></li>
+              <li><a href="#journey">Our Journey</a></li>
+              <li><a href="#careers">Careers</a></li>
+              <li><a href="#blog">Blog</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Resources</h4>
+            <ul>
+              <li><a href="#">Documentation</a></li>
+              <li><a href="#">API Reference</a></li>
+              <li><a href="#">Case Studies</a></li>
+              <li><a href="#">Webinars</a></li>
+              <li><a href="#">Newsletter</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Support</h4>
+            <ul>
+              <li><a href="#">Help Center</a></li>
+              <li><a href="#">Community</a></li>
+              <li><a href="#">Status Page</a></li>
+              <li><a href="#">Security</a></li>
+              <li><a href="#faq">FAQs</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div class="footer-legal">
+          <span>© 2026 LEON-KNIGHT Technologies Pvt. Ltd. All Rights Reserved.</span>
+          <div class="legal-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms &amp; Conditions</a>
+            <a href="#">Cookie Policy</a>
+          </div>
+        </div>
+        <div class="footer-made">
+          <span>Made with ❤️ in India 🇮🇳</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
