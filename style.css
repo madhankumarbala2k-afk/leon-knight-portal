@@ -1184,9 +1184,16 @@ input:focus, textarea:focus, button:focus { outline: 2px solid var(--accent); ou
    LEADERSHIP
    ========================================== */
 .leadership-section { background: var(--bg-secondary); }
-.leadership-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.leadership-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 28px;
+  justify-content: center;
+}
 
 .leader-card {
+  flex: 1 1 340px;
+  max-width: 360px;
   background: var(--bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
@@ -1194,6 +1201,28 @@ input:focus, textarea:focus, button:focus { outline: 2px solid var(--accent); ou
   transition: transform var(--transition), box-shadow var(--transition);
 }
 .leader-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-xl); }
+
+.leader-photo-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--accent-light) 0%, var(--bg-secondary) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-weight: 700;
+  gap: 8px;
+}
+.leader-photo-placeholder svg {
+  color: var(--accent);
+}
+.leader-photo-placeholder .lp-initials {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  letter-spacing: -0.04em;
+}
 
 .leader-avatar-wrap {
   position: relative;
@@ -1729,7 +1758,6 @@ input:focus, textarea:focus, button:focus { outline: 2px solid var(--accent); ou
   .hero-visual { display: none; }
   .products-grid { grid-template-columns: repeat(2, 1fr); }
   .about-grid { grid-template-columns: 1fr; gap: 48px; }
-  .leadership-grid { grid-template-columns: 1fr 1fr; }
   .timeline { grid-template-columns: 1fr; }
   .testimonials-grid { grid-template-columns: 1fr; }
   .careers-inner { grid-template-columns: 1fr; gap: 40px; }
@@ -1747,7 +1775,6 @@ input:focus, textarea:focus, button:focus { outline: 2px solid var(--accent); ou
   .section { padding: 64px 0; }
   .section-header { margin-bottom: 40px; }
   .products-grid { grid-template-columns: 1fr; }
-  .leadership-grid { grid-template-columns: 1fr; }
   .why-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .contact-form { padding: 24px; }
