@@ -1,0 +1,2382 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Join the LEON-KNIGHT team — Apply for internships and career opportunities in AI, Software, Design, and Marketing." />
+  <title>Careers — LEON-KNIGHT</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── CAREERS SYSTEM CUSTOM CSS ── */
+    :root {
+      --careers-bg: #F8FAFC;
+      --card-bg: #ffffff;
+      --card-border: #E2E8F0;
+      --card-shadow: 0 1px 3px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.01);
+      --text-muted: #64748B;
+      --input-bg: #F8FAFC;
+      --accent-color: #2563EB;
+      --accent-hover: #1D4ED8;
+      --accent-light: #EFF6FF;
+      --text-dark: #0F172A;
+      --success-bg: #F0FDF4;
+      --success-text: #16A34A;
+      --error-bg: #FEF2F2;
+      --error-text: #DC2626;
+      --warning-bg: #FFFBEB;
+      --warning-text: #D97706;
+    }
+
+    [data-theme="dark"] {
+      --careers-bg: #0A0F1E;
+      --card-bg: #0F172A;
+      --card-border: #1E293B;
+      --card-shadow: 0 4px 6px -1px rgba(0,0,0,0.2), 0 2px 4px -1px rgba(0,0,0,0.1);
+      --text-muted: #94A3B8;
+      --input-bg: #1E293B;
+      --accent-color: #3B82F6;
+      --accent-hover: #2563EB;
+      --accent-light: #1E3A8A;
+      --text-dark: #F8FAFC;
+      --success-bg: rgba(22,163,74,0.15);
+      --success-text: #4ADE80;
+      --error-bg: rgba(220,38,38,0.15);
+      --error-text: #F87171;
+      --warning-bg: rgba(217,119,6,0.15);
+      --warning-text: #FBBF24;
+    }
+
+    /* ── BASE PAGE STRUCTURE ── */
+    body {
+      background: var(--careers-bg);
+      min-height: 100svh;
+      padding-top: var(--nav-height);
+      display: flex;
+      flex-direction: column;
+    }
+
+    #navbar {
+      background: var(--card-bg) !important;
+      border-bottom: 1px solid var(--card-border) !important;
+      box-shadow: var(--shadow-sm) !important;
+    }
+
+    /* ── HERO SECTION ── */
+    .careers-hero {
+      position: relative;
+      padding: 100px 0 80px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.12;
+    }
+
+    .blob-1 { width: 400px; height: 400px; background: var(--accent-color); top: -100px; left: -100px; }
+    .blob-2 { width: 350px; height: 350px; background: #7C3AED; bottom: -80px; right: -80px; }
+
+    .careers-hero-container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title-c {
+      font-size: clamp(2.5rem, 5vw, 3.8rem);
+      font-weight: 900;
+      color: var(--text-dark);
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .hero-sub-c {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: var(--text-muted);
+      max-width: 680px;
+      margin: 0 auto 32px;
+      line-height: 1.6;
+    }
+
+    .hero-actions-c {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* ── TABS ── */
+    .careers-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 40px;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 16px;
+    }
+
+    .careers-tab-btn {
+      padding: 10px 24px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: transparent;
+      border-radius: var(--radius-sm);
+      transition: all var(--transition);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .careers-tab-btn.active {
+      color: var(--accent-color);
+      background: var(--accent-light);
+    }
+
+    .careers-tab-content {
+      display: none;
+    }
+
+    .careers-tab-content.active {
+      display: block;
+    }
+
+    /* ── SEARCH & FILTERS ── */
+    .filter-panel {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 32px;
+      box-shadow: var(--card-shadow);
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .filter-panel {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .filter-panel {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .filter-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .filter-input {
+      padding: 10px 12px;
+      border: 1.5px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      background: var(--input-bg);
+      color: var(--text-dark);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color var(--transition);
+    }
+
+    .filter-input:focus {
+      border-color: var(--accent-color);
+    }
+
+    /* ── JOB CARD GRID ── */
+    .job-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    @media (max-width: 1024px) {
+      .job-cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .job-cards-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Job Card Styling */
+    .job-card-c {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--card-shadow);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      position: relative;
+    }
+
+    .job-card-c:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--accent-color);
+    }
+
+    .job-card-top {
+      margin-bottom: 16px;
+    }
+
+    .job-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 8px;
+      gap: 12px;
+    }
+
+    .job-dept {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .job-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 99px;
+    }
+
+    .job-badge.open {
+      background: var(--success-bg);
+      color: var(--success-text);
+    }
+
+    .job-badge.closed {
+      background: var(--error-bg);
+      color: var(--error-text);
+    }
+
+    .job-title-c {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.3;
+      margin-bottom: 12px;
+    }
+
+    .job-meta-row {
+      display: flex;
+      gap: 16px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+
+    .job-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .job-skills-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 24px;
+    }
+
+    .skill-tag {
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: var(--careers-bg);
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--card-border);
+    }
+
+    .job-apply-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--card-border);
+      padding-top: 16px;
+      margin-top: auto;
+    }
+
+    .job-exp {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .apply-btn-c {
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      background: var(--accent-color);
+      color: #ffffff;
+      transition: background var(--transition);
+      cursor: pointer;
+    }
+
+    .apply-btn-c:hover {
+      background: var(--accent-hover);
+    }
+
+    .apply-btn-c.disabled {
+      background: var(--card-border);
+      color: var(--text-muted);
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    /* Empty states / Skeletons */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+      grid-column: 1 / -1;
+    }
+
+    .empty-state svg {
+      opacity: 0.5;
+      margin-bottom: 16px;
+    }
+
+    .skeleton-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .skeleton-box {
+      background: linear-gradient(90deg, var(--card-border) 25%, var(--input-bg) 50%, var(--card-border) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-loading 1.5s infinite;
+      border-radius: 4px;
+    }
+
+    @keyframes skeleton-loading {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* ── BENEFITS SECTION ── */
+    .benefits-section {
+      background: var(--card-bg);
+      border-top: 1px solid var(--card-border);
+      border-bottom: 1px solid var(--card-border);
+      padding: 80px 0;
+    }
+
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .benefits-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 580px) {
+      .benefits-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .benefit-card-c {
+      border: 1px solid var(--card-border);
+      background: var(--careers-bg);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      display: flex;
+      gap: 16px;
+      transition: transform var(--transition);
+    }
+
+    .benefit-card-c:hover {
+      transform: translateY(-2px);
+    }
+
+    .benefit-icon-w {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius);
+      background: var(--accent-light);
+      color: var(--accent-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .benefit-title-c {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .benefit-desc-c {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    /* ── ELIGIBILITY & TIMELINE ── */
+    .eligibility-timeline-section {
+      padding: 80px 0;
+    }
+
+    .el-tl-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 48px;
+    }
+
+    @media (max-width: 900px) {
+      .el-tl-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .who-apply-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .who-apply-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .who-apply-item svg {
+      color: var(--success-text);
+    }
+
+    .timeline-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .timeline-step-c {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      position: relative;
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-content-c h4 {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .step-arrow {
+      align-self: center;
+      display: flex;
+      justify-content: center;
+      color: var(--text-muted);
+      opacity: 0.5;
+    }
+
+    /* ── APPLICATION MODAL ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      width: 100%;
+      max-width: 680px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-2xl);
+      animation: modalSlide 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes modalSlide {
+      from { opacity: 0; transform: translateY(15px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .modal-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--card-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      background: var(--card-bg);
+      z-index: 10;
+    }
+
+    .modal-header h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .modal-close {
+      background: transparent;
+      color: var(--text-muted);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 6px;
+      border-radius: 50%;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .modal-close:hover {
+      background: var(--input-bg);
+      color: var(--text-dark);
+    }
+
+    .modal-body {
+      padding: 24px;
+    }
+
+    /* Grid Form */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 580px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .form-col-full {
+      grid-column: 1 / -1;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1.5px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      background: var(--input-bg);
+      color: var(--text-dark);
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color var(--transition);
+    }
+
+    .form-input:focus {
+      border-color: var(--accent-color);
+    }
+
+    .form-input.invalid {
+      border-color: var(--error-text);
+    }
+
+    .form-error {
+      font-size: 0.72rem;
+      color: var(--error-text);
+      margin-top: 4px;
+    }
+
+    .checkbox-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 24px;
+    }
+
+    .checkbox-row input {
+      margin-top: 3px;
+      accent-color: var(--accent-color);
+    }
+
+    .checkbox-row label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Toast Notification */
+    .toast-notif {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 16px 20px;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-lg);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .toast-notif.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast-notif.success {
+      background: var(--success-bg);
+      border: 1px solid rgba(22, 163, 74, 0.2);
+      color: var(--success-text);
+    }
+
+    .toast-notif.error {
+      background: var(--error-bg);
+      border: 1px solid rgba(220, 38, 38, 0.2);
+      color: var(--error-text);
+    }
+
+    /* ── ADMIN PANEL DASHBOARD STYLE ── */
+    .admin-container {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      margin-bottom: 60px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .admin-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 16px;
+      margin-bottom: 24px;
+    }
+
+    .admin-header-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .admin-tabs {
+      display: flex;
+      gap: 8px;
+      background: var(--careers-bg);
+      padding: 4px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--card-border);
+    }
+
+    .admin-tab-btn {
+      padding: 6px 14px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: transparent;
+      border-radius: 4px;
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+
+    .admin-tab-btn.active {
+      background: var(--card-bg);
+      color: var(--text-dark);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .admin-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 768px) {
+      .admin-stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .stat-card-c {
+      background: var(--careers-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius);
+      padding: 16px;
+      text-align: left;
+    }
+
+    .stat-card-val {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1.1;
+    }
+
+    .stat-card-lbl {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 4px;
+    }
+
+    .admin-table-controls {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+    }
+
+    .admin-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      background: var(--card-bg);
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.8rem;
+    }
+
+    .admin-table th, .admin-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--card-border);
+      vertical-align: middle;
+    }
+
+    .admin-table th {
+      background: var(--careers-bg);
+      color: var(--text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+    }
+
+    .admin-table tbody tr:hover {
+      background: var(--careers-bg);
+    }
+
+    .status-select {
+      padding: 6px 10px;
+      border: 1.5px solid var(--card-border);
+      border-radius: 4px;
+      background: var(--card-bg);
+      color: var(--text-dark);
+      font-weight: 600;
+      font-size: 0.75rem;
+      outline: none;
+    }
+
+    .status-select:focus {
+      border-color: var(--accent-color);
+    }
+
+    .admin-btn {
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all var(--transition);
+    }
+
+    .admin-btn.primary {
+      background: var(--accent-color);
+      color: #ffffff;
+    }
+
+    .admin-btn.primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .admin-btn.ghost {
+      background: transparent;
+      border: 1px solid var(--card-border);
+      color: var(--text-dark);
+    }
+
+    .admin-btn.ghost:hover {
+      background: var(--input-bg);
+    }
+
+    .admin-btn.danger {
+      background: var(--error-bg);
+      color: var(--error-text);
+    }
+
+    .admin-btn.danger:hover {
+      background: var(--error-text);
+      color: #ffffff;
+    }
+
+    /* Admin Password Panel */
+    .admin-auth-panel {
+      max-width: 380px;
+      margin: 80px auto;
+      text-align: center;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      padding: 32px 24px;
+      box-shadow: var(--card-shadow);
+    }
+
+    /* ── COMING SOON VIEW ── */
+    .coming-soon-panel {
+      text-align: center;
+      padding: 100px 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--card-shadow);
+    }
+
+    .coming-soon-panel svg {
+      color: var(--accent-color);
+      margin-bottom: 20px;
+      opacity: 0.8;
+      animation: pulse-slow 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse-slow {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 0.9; transform: scale(1.03); }
+    }
+
+    .coming-soon-panel h3 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="LEON-KNIGHT Home">
+        <span class="logo-icon">
+          <img src="logo.jpg" alt="LEON-KNIGHT Logo" class="nav-logo-img" />
+        </span>
+        <span class="logo-text">LEON-KNIGHT</span>
+      </a>
+
+      <ul class="nav-links" id="nav-links" role="menubar">
+        <li role="none"><a href="index.html" class="nav-link" role="menuitem">Home</a></li>
+        <li role="none"><a href="index.html#products" class="nav-link" role="menuitem">Products</a></li>
+        <li role="none"><a href="index.html#dashboard" class="nav-link" role="menuitem">Dashboard</a></li>
+        <li role="none"><a href="index.html#about" class="nav-link" role="menuitem">About</a></li>
+        <li role="none"><a href="index.html#leadership" class="nav-link" role="menuitem">Leadership</a></li>
+        <li role="none"><a href="careers.html" class="nav-link active" role="menuitem">Careers</a></li>
+        <li role="none"><a href="index.html#blog" class="nav-link" role="menuitem">Blog</a></li>
+        <li role="none"><a href="index.html#contact" class="nav-link" role="menuitem">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <!-- Theme toggle -->
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+          <svg class="sun-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <svg class="moon-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <a href="login.html" class="btn-ghost" id="login-btn">Login</a>
+        <a href="login.html" class="btn-primary" id="get-started-btn">Get Started</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <header class="careers-hero">
+    <div class="hero-bg">
+      <div class="hero-blob blob-1"></div>
+      <div class="hero-blob blob-2"></div>
+    </div>
+    <div class="container careers-hero-container">
+      <h1 class="hero-title-c">Join <span class="text-gradient">LEON-KNIGHT</span></h1>
+      <p class="hero-sub-c">Build real-world experience by working on AI, software, web applications, and innovative products with our team.</p>
+      <div class="hero-actions-c">
+        <button class="btn-primary btn-lg" onclick="scrollToOpenings()">Apply Now</button>
+        <button class="btn-outline btn-lg" onclick="scrollToOpenings()">View Open Roles</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN TAB WRAPPER -->
+  <main class="container" style="flex: 1; padding-bottom: 60px;">
+    <!-- Tab buttons -->
+    <div class="careers-tabs">
+      <button class="careers-tab-btn active" id="tab-btn-interns">Internships</button>
+      <button class="careers-tab-btn" id="tab-btn-jobs">Full-Time Jobs (Coming Soon)</button>
+    </div>
+
+    <!-- TAB 1: INTERNSHIPS CONTENT -->
+    <div class="careers-tab-content active" id="tab-content-interns">
+      <!-- Search & Filters -->
+      <div class="filter-panel" id="openings-filter-row">
+        <!-- Search Keyword -->
+        <div class="filter-group">
+          <label class="filter-label" for="search-role">Search</label>
+          <input type="text" id="search-role" class="filter-input" placeholder="Search roles, skills..." />
+        </div>
+        <!-- Department Filter -->
+        <div class="filter-group">
+          <label class="filter-label" for="filter-dept">Department</label>
+          <select id="filter-dept" class="filter-input">
+            <option value="all">All Departments</option>
+            <option value="technology">Technology</option>
+            <option value="design">Design</option>
+            <option value="marketing">Marketing</option>
+            <option value="business">Business</option>
+            <option value="operations">Operations</option>
+          </select>
+        </div>
+        <!-- Mode Filter -->
+        <div class="filter-group">
+          <label class="filter-label" for="filter-mode">Work Mode</label>
+          <select id="filter-mode" class="filter-input">
+            <option value="all">All Modes</option>
+            <option value="Remote">Remote</option>
+            <option value="Hybrid">Hybrid</option>
+            <option value="Onsite">Onsite</option>
+          </select>
+        </div>
+        <!-- Duration Filter -->
+        <div class="filter-group">
+          <label class="filter-label" for="filter-duration">Duration</label>
+          <select id="filter-duration" class="filter-input">
+            <option value="all">All Durations</option>
+            <option value="3 Months">3 Months</option>
+            <option value="6 Months">6 Months</option>
+          </select>
+        </div>
+        <!-- Status Filter -->
+        <div class="filter-group">
+          <label class="filter-label" for="filter-status">Status</label>
+          <select id="filter-status" class="filter-input">
+            <option value="all">All Status</option>
+            <option value="Open">Open</option>
+            <option value="Closed">Closed</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Internship Openings Grid -->
+      <section class="job-cards-grid" id="internships-grid">
+        <!-- Skeletons render on load, then filled via JS -->
+        <div class="skeleton-card">
+          <div class="skeleton-box" style="width: 40%; height: 12px; margin-bottom: 12px;"></div>
+          <div class="skeleton-box" style="width: 80%; height: 24px; margin-bottom: 12px;"></div>
+          <div class="skeleton-box" style="width: 60%; height: 14px; margin-bottom: 24px;"></div>
+          <div style="display: flex; gap: 6px; margin-bottom: 24px;">
+            <div class="skeleton-box" style="width: 50px; height: 20px;"></div>
+            <div class="skeleton-box" style="width: 50px; height: 20px;"></div>
+            <div class="skeleton-box" style="width: 50px; height: 20px;"></div>
+          </div>
+          <div class="skeleton-box" style="width: 100%; height: 35px; border-radius: 6px;"></div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-box" style="width: 40%; height: 12px; margin-bottom: 12px;"></div>
+          <div class="skeleton-box" style="width: 80%; height: 24px; margin-bottom: 12px;"></div>
+          <div class="skeleton-box" style="width: 60%; height: 14px; margin-bottom: 24px;"></div>
+          <div style="display: flex; gap: 6px; margin-bottom: 24px;">
+            <div class="skeleton-box" style="width: 50px; height: 20px;"></div>
+            <div class="skeleton-box" style="width: 50px; height: 20px;"></div>
+            <div class="skeleton-box" style="width: 50px; height: 20px;"></div>
+          </div>
+          <div class="skeleton-box" style="width: 100%; height: 35px; border-radius: 6px;"></div>
+        </div>
+        <div class="skeleton-card">
+          <div class="skeleton-box" style="width: 40%; height: 12px; margin-bottom: 12px;"></div>
+          <div class="skeleton-box" style="width: 80%; height: 24px; margin-bottom: 12px;"></div>
+          <div class="skeleton-box" style="width: 60%; height: 14px; margin-bottom: 24px;"></div>
+          <div style="display: flex; gap: 6px; margin-bottom: 24px;">
+            <div class="skeleton-box" style="width: 50px; height: 20px;"></div>
+            <div class="skeleton-box" style="width: 50px; height: 20px;"></div>
+            <div class="skeleton-box" style="width: 50px; height: 20px;"></div>
+          </div>
+          <div class="skeleton-box" style="width: 100%; height: 35px; border-radius: 6px;"></div>
+        </div>
+      </section>
+
+      <!-- Benefits Section -->
+      <section class="benefits-section" style="margin: 60px 0;">
+        <div class="section-header" style="margin-bottom: 40px;">
+          <div class="section-badge">Internship Benefits</div>
+          <h2 class="section-title" style="font-size: 1.8rem;">Why Intern with LEON-KNIGHT?</h2>
+          <p class="section-sub" style="font-size: 0.9rem;">We offer a supportive environment that enables you to build strong skills, real products, and a solid network.</p>
+        </div>
+        <div class="benefits-grid">
+          <!-- Benefit 1 -->
+          <div class="benefit-card-c">
+            <div class="benefit-icon-w">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/></svg>
+            </div>
+            <div>
+              <h4 class="benefit-title-c">Work on Real Products</h4>
+              <p class="benefit-desc-c">No busywork. Interns contribute directly to production products used by clients.</p>
+            </div>
+          </div>
+          <!-- Benefit 2 -->
+          <div class="benefit-card-c">
+            <div class="benefit-icon-w">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div>
+              <h4 class="benefit-title-c">1-on-1 Mentorship</h4>
+              <p class="benefit-desc-c">Work alongside senior engineers, designers, and managers who guide your learning path.</p>
+            </div>
+          </div>
+          <!-- Benefit 3 -->
+          <div class="benefit-card-c">
+            <div class="benefit-icon-w">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6M18 9v6M4 22V4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8l-4 4-4 4-2-2z"/></svg>
+            </div>
+            <div>
+              <h4 class="benefit-title-c">Internship Certificate</h4>
+              <p class="benefit-desc-c">A certified document acknowledging your successful tenure, responsibilities, and achievements.</p>
+            </div>
+          </div>
+          <!-- Benefit 4 -->
+          <div class="benefit-card-c">
+            <div class="benefit-icon-w">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            </div>
+            <div>
+              <h4 class="benefit-title-c">Letter of Recommendation</h4>
+              <p class="benefit-desc-c">Top performers receive a customized recommendation letter detailing accomplishments.</p>
+            </div>
+          </div>
+          <!-- Benefit 5 -->
+          <div class="benefit-card-c">
+            <div class="benefit-icon-w">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div>
+              <h4 class="benefit-title-c">Portfolio Projects</h4>
+              <p class="benefit-desc-c">Build projects you can proudly showcase in your portfolio to secure future opportunities.</p>
+            </div>
+          </div>
+          <!-- Benefit 6 -->
+          <div class="benefit-card-c">
+            <div class="benefit-icon-w">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            </div>
+            <div>
+              <h4 class="benefit-title-c">Flexible Work Environment</h4>
+              <p class="benefit-desc-c">Work remote, onsite, or hybrid. We focus on results, milestones, and output, not hours logged.</p>
+            </div>
+          </div>
+          <!-- Benefit 7 -->
+          <div class="benefit-card-c">
+            <div class="benefit-icon-w">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+            </div>
+            <div>
+              <h4 class="benefit-title-c">Career Growth Guidance</h4>
+              <p class="benefit-desc-c">Participate in resume reviews, mock interviews, and technical workshops run by the team.</p>
+            </div>
+          </div>
+          <!-- Benefit 8 -->
+          <div class="benefit-card-c">
+            <div class="benefit-icon-w">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><line x1="18" y1="9" x2="18" y2="15"/><line x1="6" y1="9" x2="15" y2="15"/></svg>
+            </div>
+            <div>
+              <h4 class="benefit-title-c">Industry Networking</h4>
+              <p class="benefit-desc-c">Connect with team members, company founders, and partner stakeholders inside our ecosystem.</p>
+            </div>
+          </div>
+          <!-- Benefit 9 -->
+          <div class="benefit-card-c">
+            <div class="benefit-icon-w">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <div>
+              <h4 class="benefit-title-c">PPO Opportunities</h4>
+              <p class="benefit-desc-c">Outstanding interns receive Pre-Placement Offers to join the team full-time after graduation.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Eligibility & Timeline Grid -->
+      <section class="eligibility-timeline-section">
+        <div class="el-tl-grid">
+          <!-- Eligibility -->
+          <div>
+            <div class="section-header" style="text-align: left; margin-bottom: 24px;">
+              <div class="section-badge">Eligibility</div>
+              <h3 class="section-title" style="font-size: 1.6rem; text-align: left;">Who Can Apply?</h3>
+              <p class="section-sub" style="font-size: 0.85rem;">We evaluate candidate potential over degrees. Our internships are open to:</p>
+            </div>
+            <div class="who-apply-list">
+              <div class="who-apply-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                College Students (Any batch / Stream)
+              </div>
+              <div class="who-apply-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Final Year Students seeking projects/PPOs
+              </div>
+              <div class="who-apply-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Recent College Graduates (Freshers)
+              </div>
+              <div class="who-apply-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Self-Taught Learners & Bootcamp Graduates
+              </div>
+              <div class="who-apply-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Passionate Software Developers & AI Builders
+              </div>
+              <div class="who-apply-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Creative Designers & Media Enthusiasts
+              </div>
+              <div class="who-apply-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Analytical Business & Marketing Marketers
+              </div>
+            </div>
+          </div>
+
+          <!-- Application Process Timeline -->
+          <div>
+            <div class="section-header" style="text-align: left; margin-bottom: 24px;">
+              <div class="section-badge">Timeline</div>
+              <h3 class="section-title" style="font-size: 1.6rem; text-align: left;">Application Process</h3>
+              <p class="section-sub" style="font-size: 0.85rem;">Our onboarding flow is simple, transparent, and direct:</p>
+            </div>
+            <div class="timeline-steps">
+              <div class="timeline-step-c">
+                <span class="step-number">1</span>
+                <div class="step-content-c">
+                  <h4>Submit Application</h4>
+                  <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">Find a suitable role below and fill out our quick online form.</p>
+                </div>
+              </div>
+              <div class="step-arrow">↓</div>
+              <div class="timeline-step-c">
+                <span class="step-number">2</span>
+                <div class="step-content-c">
+                  <h4>Resume Screening</h4>
+                  <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">Our team evaluates your skill tags, Github repositories, or portfolio design files.</p>
+                </div>
+              </div>
+              <div class="step-arrow">↓</div>
+              <div class="timeline-step-c">
+                <span class="step-number">3</span>
+                <div class="step-content-c">
+                  <h4>Technical / HR Interview</h4>
+                  <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">A friendly call discussing your code, designs, and alignment with our project pace.</p>
+                </div>
+              </div>
+              <div class="step-arrow">↓</div>
+              <div class="timeline-step-c">
+                <span class="step-number">4</span>
+                <div class="step-content-c">
+                  <h4>Final Selection</h4>
+                  <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">Successful candidates are selected and receive formal offer packages.</p>
+                </div>
+              </div>
+              <div class="step-arrow">↓</div>
+              <div class="timeline-step-c" style="border-color: var(--accent-color);">
+                <span class="step-number" style="background: var(--success-text);">5</span>
+                <div class="step-content-c">
+                  <h4>Internship Begins! 🚀</h4>
+                  <p style="font-size: 0.78rem; color: var(--text-muted); margin-top: 2px;">Onboard with your mentor and start contributing code or assets.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- TAB 2: FULL TIME OPPORTUNITIES CONTENT -->
+    <div class="careers-tab-content" id="tab-content-jobs">
+      <div class="coming-soon-panel">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><polyline points="12 6 12 12 16 14"/></svg>
+        <h3>Full-Time Opportunities</h3>
+        <p style="color: var(--text-muted); max-width: 480px; margin: 0 auto; font-size: 0.9rem; line-height: 1.6;">Full-Time Opportunities will be available soon. We are expanding our full-time departments next cycle. Outstanding interns will receive direct transition PPOs.</p>
+      </div>
+    </div>
+
+    <!-- TAB 3: ADMIN CONSOLE WORKSPACE -->
+    <div class="careers-tab-content" id="tab-content-admin">
+      <!-- Auth Screen -->
+      <div class="admin-auth-panel" id="admin-auth-box">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent-color)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:16px;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <h3 style="font-size: 1.2rem; font-weight: 800; color: var(--text-dark); margin-bottom: 8px;">Admin Console Login</h3>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 24px;">Enter credentials to manage listings and applicants.</p>
+        <form id="admin-login-form">
+          <div class="field-group" style="margin-bottom:16px;">
+            <input type="password" id="admin-password" class="form-input" placeholder="Enter Access Code (admin123)" />
+            <div class="form-error" id="admin-auth-error"></div>
+          </div>
+          <button type="submit" class="submit-btn" style="padding: 10px; width: 100%;">Verify Code</button>
+        </form>
+      </div>
+
+      <!-- Dashboard Panel (visible on login success) -->
+      <div class="admin-container" id="admin-dashboard-box" style="display: none;">
+        <div class="admin-header-row">
+          <div class="admin-header-title">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+            Careers Administration Panel
+          </div>
+          <div class="admin-tabs">
+            <button class="admin-tab-btn active" id="admin-tab-listings">Listings</button>
+            <button class="admin-tab-btn" id="admin-tab-applicants">Applicants</button>
+          </div>
+        </div>
+
+        <!-- 4 KPI cards row -->
+        <div class="admin-stats-grid">
+          <div class="stat-card-c">
+            <div class="stat-card-val" id="admin-stat-total">24</div>
+            <div class="stat-card-lbl">Total Internships</div>
+          </div>
+          <div class="stat-card-c">
+            <div class="stat-card-val" id="admin-stat-open">24</div>
+            <div class="stat-card-lbl">Open Roles</div>
+          </div>
+          <div class="stat-card-c">
+            <div class="stat-card-val" id="admin-stat-applied">6</div>
+            <div class="stat-card-lbl">Total Candidates</div>
+          </div>
+          <div class="stat-card-c">
+            <div class="stat-card-val" id="admin-stat-selected" style="color:var(--success-text);">0</div>
+            <div class="stat-card-lbl">Selected</div>
+          </div>
+        </div>
+
+        <!-- VIEW A: LISTINGS MANAGEMENT -->
+        <div class="admin-subview" id="admin-view-listings">
+          <div class="admin-table-controls">
+            <button class="admin-btn primary" onclick="openAddInternshipModal()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              Add Internship
+            </button>
+            <input type="text" id="admin-listings-search" class="form-input" placeholder="Search internships..." style="max-width: 250px;" />
+          </div>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Internship Title</th>
+                  <th>Department</th>
+                  <th>Mode</th>
+                  <th>Duration</th>
+                  <th>Status</th>
+                  <th style="width: 180px; text-align: center;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-listings-table-body">
+                <!-- Loaded dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- VIEW B: CANDIDATES MANAGEMENT -->
+        <div class="admin-subview" id="admin-view-applicants" style="display: none;">
+          <div class="admin-table-controls">
+            <div style="display: flex; gap: 8px;">
+              <input type="text" id="admin-applicants-search" class="form-input" placeholder="Search candidates..." style="max-width: 200px;" />
+              <select id="admin-applicants-filter-role" class="form-input" style="max-width: 180px;">
+                <option value="all">All Roles</option>
+              </select>
+              <select id="admin-applicants-filter-status" class="form-input" style="max-width: 150px;">
+                <option value="all">All Status</option>
+                <option value="Applied">Applied</option>
+                <option value="Under Review">Under Review</option>
+                <option value="Shortlisted">Shortlisted</option>
+                <option value="Interview Scheduled">Interview Scheduled</option>
+                <option value="Selected">Selected</option>
+                <option value="Rejected">Rejected</option>
+              </select>
+            </div>
+            <button class="admin-btn ghost" onclick="exportApplicantsData()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Export CSV
+            </button>
+          </div>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Candidate Name</th>
+                  <th>Applied Role</th>
+                  <th>Status</th>
+                  <th>Location</th>
+                  <th>Submitted Date</th>
+                  <th style="width: 280px; text-align: center;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="admin-applicants-table-body">
+                <!-- Loaded dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer" style="padding: 24px 0; border-top: 1px solid var(--card-border); background: var(--card-bg); margin-top: auto;">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+      <p style="font-size: 0.8rem; color: var(--text-muted);">© 2026 LEON-KNIGHT. Built with purpose &amp; vision. · <span id="admin-portal-link" style="color:var(--accent-color); cursor:pointer; font-weight:600;">Admin Console</span></p>
+      <div style="display: flex; gap: 16px; font-size: 0.8rem; color: var(--text-muted);">
+        <a href="index.html">Home</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- APPLICATION FORM MODAL OVERLAY -->
+  <div class="modal-overlay" id="apply-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="modal-role-title">Apply for Internship</h3>
+        <button class="modal-close" id="modal-close-btn" aria-label="Close modal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="apply-form" novalidate>
+          <input type="hidden" id="su-role-id" />
+          
+          <div class="form-grid">
+            <!-- Full Name -->
+            <div class="field-group">
+              <label class="form-label" for="su-name">Full Name *</label>
+              <input type="text" id="su-name" class="form-input" placeholder="Madhan Kumar" required />
+              <div class="form-error" id="su-name-err"></div>
+            </div>
+            <!-- Email -->
+            <div class="field-group">
+              <label class="form-label" for="su-email">Email Address *</label>
+              <input type="email" id="su-email" class="form-input" placeholder="madhan@example.com" required />
+              <div class="form-error" id="su-email-err"></div>
+            </div>
+            <!-- Phone Number -->
+            <div class="field-group">
+              <label class="form-label" for="su-phone">Phone Number *</label>
+              <input type="tel" id="su-phone" class="form-input" placeholder="9876543210" required />
+              <div class="form-error" id="su-phone-err"></div>
+            </div>
+            <!-- College -->
+            <div class="field-group">
+              <label class="form-label" for="su-college">College / University *</label>
+              <input type="text" id="su-college" class="form-input" placeholder="IIT Madras" required />
+              <div class="form-error" id="su-college-err"></div>
+            </div>
+            <!-- Degree -->
+            <div class="field-group">
+              <label class="form-label" for="su-degree">Degree *</label>
+              <input type="text" id="su-degree" class="form-input" placeholder="B.Tech Computer Science" required />
+              <div class="form-error" id="su-degree-err"></div>
+            </div>
+            <!-- Year -->
+            <div class="field-group">
+              <label class="form-label" for="su-year">Current Year *</label>
+              <select id="su-year" class="form-input" required>
+                <option value="">Select Year</option>
+                <option value="1st Year">1st Year</option>
+                <option value="2nd Year">2nd Year</option>
+                <option value="3rd Year">3rd Year</option>
+                <option value="4th Year">4th Year</option>
+                <option value="Postgraduate">Postgraduate</option>
+                <option value="Graduated">Graduated</option>
+              </select>
+              <div class="form-error" id="su-year-err"></div>
+            </div>
+            <!-- Role display -->
+            <div class="field-group">
+              <label class="form-label" for="su-role-display">Internship Role</label>
+              <input type="text" id="su-role-display" class="form-input" disabled />
+            </div>
+            <!-- Location -->
+            <div class="field-group">
+              <label class="form-label" for="su-location">Location (City, State) *</label>
+              <input type="text" id="su-location" class="form-input" placeholder="Chennai, Tamil Nadu" required />
+              <div class="form-error" id="su-location-err"></div>
+            </div>
+            <!-- LinkedIn -->
+            <div class="field-group">
+              <label class="form-label" for="su-linkedin">LinkedIn Profile Link</label>
+              <input type="url" id="su-linkedin" class="form-input" placeholder="https://linkedin.com/in/username" />
+              <div class="form-error" id="su-linkedin-err"></div>
+            </div>
+            <!-- GitHub -->
+            <div class="field-group">
+              <label class="form-label" for="su-github">GitHub Profile Link</label>
+              <input type="url" id="su-github" class="form-input" placeholder="https://github.com/username" />
+              <div class="form-error" id="su-github-err"></div>
+            </div>
+            <!-- Portfolio -->
+            <div class="field-group form-col-full">
+              <label class="form-label" for="su-portfolio">Portfolio / Website Link</label>
+              <input type="url" id="su-portfolio" class="form-input" placeholder="https://portfolio.com" />
+              <div class="form-error" id="su-portfolio-err"></div>
+            </div>
+            <!-- Resume PDF Upload -->
+            <div class="field-group form-col-full">
+              <label class="form-label" for="su-resume">Upload Resume (PDF only, max 2MB) *</label>
+              <input type="file" id="su-resume" class="form-input" accept=".pdf" required />
+              <div class="form-error" id="su-resume-err"></div>
+            </div>
+            <!-- Cover Letter / Why Join -->
+            <div class="field-group form-col-full">
+              <label class="form-label" for="su-motivation">Why do you want to join LEON-KNIGHT? *</label>
+              <textarea id="su-motivation" class="form-input" rows="4" placeholder="Briefly describe your passion for AI and products..." required style="resize: vertical; font-family:inherit;"></textarea>
+              <div class="form-error" id="su-motivation-err"></div>
+            </div>
+            <!-- Available From -->
+            <div class="field-group">
+              <label class="form-label" for="su-startdate">Available From (Start Date) *</label>
+              <input type="date" id="su-startdate" class="form-input" required />
+              <div class="form-error" id="su-startdate-err"></div>
+            </div>
+          </div>
+
+          <!-- Declaration -->
+          <div class="checkbox-row">
+            <input type="checkbox" id="su-agree" required />
+            <label for="su-agree">I declare that the information provided is accurate, and I am available to work the required hours for the duration selected. *</label>
+          </div>
+          <div class="form-error" id="su-agree-err" style="margin-top:-16px; margin-bottom:16px;"></div>
+
+          <button type="submit" class="submit-btn" id="apply-submit-btn" style="width: 100%; padding: 12px;">
+            <span class="spinner"></span>
+            <span class="btn-text">Submit Application</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERVIEW SCHEDULER MODAL -->
+  <div class="modal-overlay" id="schedule-modal">
+    <div class="modal-box" style="max-width: 400px;">
+      <div class="modal-header">
+        <h3>Schedule Interview</h3>
+        <button class="modal-close" onclick="closeScheduleModal()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="schedule-form">
+          <input type="hidden" id="schedule-applicant-id" />
+          <div class="field-group" style="margin-bottom:16px;">
+            <label class="form-label" for="int-date">Interview Date & Time</label>
+            <input type="datetime-local" id="int-date" class="form-input" required />
+          </div>
+          <button type="submit" class="submit-btn" style="width: 100%; padding: 10px;">Schedule Call</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTERNSHIP ROLE CREATION MODAL -->
+  <div class="modal-overlay" id="role-modal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 id="role-modal-title">Add Internship Role</h3>
+        <button class="modal-close" onclick="closeRoleModal()">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="role-form">
+          <input type="hidden" id="role-form-id" />
+          <div class="form-grid">
+            <div class="field-group">
+              <label class="form-label" for="rf-title">Internship Title *</label>
+              <input type="text" id="rf-title" class="form-input" placeholder="e.g. Node.js Developer Intern" required />
+            </div>
+            <div class="field-group">
+              <label class="form-label" for="rf-dept">Department *</label>
+              <select id="rf-dept" class="form-input" required>
+                <option value="technology">Technology</option>
+                <option value="design">Design</option>
+                <option value="marketing">Marketing</option>
+                <option value="business">Business</option>
+                <option value="operations">Operations</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="form-label" for="rf-mode">Work Mode *</label>
+              <select id="rf-mode" class="form-input" required>
+                <option value="Remote">Remote</option>
+                <option value="Hybrid">Hybrid</option>
+                <option value="Onsite">Onsite</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label class="form-label" for="rf-duration">Duration *</label>
+              <select id="rf-duration" class="form-input" required>
+                <option value="3 Months">3 Months</option>
+                <option value="6 Months">6 Months</option>
+              </select>
+            </div>
+            <div class="field-group form-col-full">
+              <label class="form-label" for="rf-skills">Required Skills (Comma separated) *</label>
+              <input type="text" id="rf-skills" class="form-input" placeholder="React, Node.js, REST APIs" required />
+            </div>
+            <div class="field-group">
+              <label class="form-label" for="rf-exp">Experience Requirement</label>
+              <input type="text" id="rf-exp" class="form-input" value="0–1 Years / Students" required />
+            </div>
+            <div class="field-group">
+              <label class="form-label" for="rf-status">Hiring Status</label>
+              <select id="rf-status" class="form-input">
+                <option value="Open">Open</option>
+                <option value="Closed">Closed</option>
+              </select>
+            </div>
+          </div>
+          <button type="submit" class="submit-btn" style="width: 100%; padding: 12px; margin-top: 10px;">Save Role</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div class="toast-notif" id="toast-message">
+    <span id="toast-text">Application submitted successfully!</span>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    'use strict';
+
+    // Helpers
+    const $ = (sel) => document.querySelector(sel);
+    const $$ = (sel) => [...document.querySelectorAll(sel)];
+    const on = (el, ev, fn) => el && el.addEventListener(ev, fn);
+
+    // ── THEME SWITCH ──
+    (function initTheme() {
+      const html = document.documentElement;
+      const toggle = $('#theme-toggle');
+      const saved = localStorage.getItem('lk-theme') || 'light';
+      html.setAttribute('data-theme', saved);
+      on(toggle, 'click', () => {
+        const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        html.setAttribute('data-theme', next);
+        localStorage.setItem('lk-theme', next);
+      });
+    })();
+
+    // ── DATA STORE (LOCALSTORAGE MOCK BACKEND) ──
+    const defaultInternships = [
+      // Technology (9)
+      { id: 't1', title: 'AI/ML Intern', dept: 'technology', mode: 'Remote', duration: '6 Months', skills: ['Python', 'TensorFlow', 'NLP', 'Scikit-Learn'], exp: '0–1 Years / Students', status: 'Open' },
+      { id: 't2', title: 'Full Stack Developer Intern', dept: 'technology', mode: 'Remote', duration: '6 Months', skills: ['React', 'Node.js', 'MongoDB', 'Express'], exp: '0–1 Years / Students', status: 'Open' },
+      { id: 't3', title: 'Frontend Developer Intern', dept: 'technology', mode: 'Remote', duration: '3 Months', skills: ['HTML', 'CSS', 'JavaScript', 'React'], exp: '0–1 Years / Students', status: 'Open' },
+      { id: 't4', title: 'Backend Developer Intern', dept: 'technology', mode: 'Hybrid', duration: '6 Months', skills: ['Node.js', 'Python', 'SQL', 'REST APIs'], exp: '0–1 Years / Students', status: 'Open' },
+      { id: 't5', title: 'Mobile App Developer Intern', dept: 'technology', mode: 'Remote', duration: '6 Months', skills: ['Flutter', 'Dart', 'Firebase', 'React Native'], exp: '0–1 Years / Students', status: 'Open' },
+      { id: 't6', title: 'DevOps Intern', dept: 'technology', mode: 'Onsite', duration: '6 Months', skills: ['Docker', 'Kubernetes', 'CI/CD', 'GitHub Actions'], exp: '0–1 Years / Students', status: 'Open' },
+      { id: 't7', title: 'Cloud Computing Intern', dept: 'technology', mode: 'Remote', duration: '3 Months', skills: ['AWS', 'Azure', 'Cloud Architecture'], exp: '0–1 Years / Students', status: 'Open' },
+      { id: 't8', title: 'Cybersecurity Intern', dept: 'technology', mode: 'Hybrid', duration: '6 Months', skills: ['Penetration Testing', 'Network Security', 'Cryptography'], exp: '0–1 Years / Students', status: 'Open' },
+      { id: 't9', title: 'QA Testing Intern', dept: 'technology', mode: 'Remote', duration: '3 Months', skills: ['Selenium', 'Automation', 'Manual Testing', 'Jest'], exp: '0–1 Years / Students', status: 'Open' },
+      // Design (4)
+      { id: 'd1', title: 'UI/UX Design Intern', dept: 'design', mode: 'Remote', duration: '6 Months', skills: ['Figma', 'Wireframing', 'User Research'], exp: '0–1 Years / Students', status: 'Open' },
+      { id: 'd2', title: 'Graphic Design Intern', dept: 'design', mode: 'Hybrid', duration: '3 Months', skills: ['Photoshop', 'Illustrator', 'Branding'], exp: '0–1 Years / Students', status: 'Open' },
+      { id: 'd3', title: 'Motion Graphics Intern', dept: 'design', mode: 'Remote', duration: '3 Months', skills: ['After Effects', 'Premiere Pro', 'Animation'], exp: '0–1 Years / Students', status: 'Open' },
+      { id: 'd4', title: 'Video Editing Intern', dept: 'design', mode: 'Onsite', duration: '6 Months', skills: ['Premiere Pro', 'Final Cut Pro', 'Storytelling'], exp: '0–1 Years / Students', status: 'Open' },
+      // Marketing (4)
+      { id: 'm1', title: 'Digital Marketing Intern', dept: 'marketing', mode: 'Remote', duration: '3 Months', skills: ['SEO', 'AdWords', 'Content Marketing'], exp: '0–1 Years / Students', status: 'Open' },
+      { id: 'm2', title: 'Social Media Marketing Intern', dept: 'marketing', mode: 'Remote', duration: '3 Months', skills: ['Instagram', 'LinkedIn', 'Content Creation'], exp: '0–1 Years / Students', status: 'Open' },
+      { id: 'm3', title: 'SEO Intern', dept: 'marketing', mode: 'Hybrid', duration: '3 Months', skills: ['Google Analytics', 'Keyword Research', 'On-page SEO'], exp: '0–1 Years / Students', status: 'Open' },
+      { id: 'm4', title: 'Content Writer Intern', dept: 'marketing', mode: 'Remote', duration: '3 Months', skills: ['Copywriting', 'SEO Writing', 'Editing'], exp: '0–1 Years / Students', status: 'Open' },
+      // Business (3)
+      { id: 'b1', title: 'Business Development Intern', dept: 'business', mode: 'Hybrid', duration: '6 Months', skills: ['Lead Generation', 'CRM', 'Market Research'], exp: '0–1 Years / Students', status: 'Open' },
+      { id: 'b2', title: 'Sales Intern', dept: 'business', mode: 'Onsite', duration: '3 Months', skills: ['Negotiation', 'Client Pitching', 'Communication'], exp: '0–1 Years / Students', status: 'Open' },
+      { id: 'b3', title: 'Product Management Intern', dept: 'business', mode: 'Remote', duration: '6 Months', skills: ['Product Roadmap', 'User Stories', 'Agile'], exp: '0–1 Years / Students', status: 'Open' },
+      // Operations (3)
+      { id: 'o1', title: 'HR Intern', dept: 'operations', mode: 'Hybrid', duration: '3 Months', skills: ['Recruitment', 'Onboarding', 'Employee Engagement'], exp: '0–1 Years / Students', status: 'Open' },
+      { id: 'o2', title: 'Operations Intern', dept: 'operations', mode: 'Onsite', duration: '3 Months', skills: ['Process Optimization', 'Logistics', 'Excel'], exp: '0–1 Years / Students', status: 'Open' },
+      { id: 'o3', title: 'Finance & Accounts Intern', dept: 'operations', mode: 'Remote', duration: '6 Months', skills: ['Bookkeeping', 'Tally', 'Financial Analysis'], exp: '0–1 Years / Students', status: 'Open' }
+    ];
+
+    const defaultApplicants = [
+      { id: 'ap1', name: 'Madhan Kumar', email: 'madhan@example.com', phone: '9876543210', college: 'IIT Madras', degree: 'B.Tech CS', year: '4th Year', roleId: 't1', roleTitle: 'AI/ML Intern', location: 'Chennai', linkedin: 'https://linkedin.com/in/madhan', github: 'https://github.com/madhan', portfolio: '', resumeName: 'madhan_resume.pdf', motivation: 'Highly passionate about building scale AI products.', startdate: '2026-07-01', status: 'Shortlisted', date: '2026-06-25' },
+      { id: 'ap2', name: 'Sanjay Krish', email: 'sanjay@example.com', phone: '9123456789', college: 'VIT Vellore', degree: 'B.Tech IT', year: '3rd Year', roleId: 't2', roleTitle: 'Full Stack Developer Intern', location: 'Vellore', linkedin: 'https://linkedin.com/in/sanjay', github: 'https://github.com/sanjay', portfolio: 'https://sanjay.dev', resumeName: 'sanjay_resume.pdf', motivation: 'I want to build full stack web portals with dynamic JS interactions.', startdate: '2026-07-05', status: 'Interview Scheduled', date: '2026-06-26', interviewDate: '2026-07-02T14:00' },
+      { id: 'ap3', name: 'Rajaneethi S', email: 'raja@example.com', phone: '9988776655', college: 'SRM University', degree: 'BBA', year: '3rd Year', roleId: 'o3', roleTitle: 'Finance & Accounts Intern', location: 'Chennai', linkedin: '', github: '', portfolio: '', resumeName: 'raja_resume.pdf', motivation: 'Interested in startup accounts, taxing guidelines, and accounting software.', startdate: '2026-07-01', status: 'Under Review', date: '2026-06-27' },
+      { id: 'ap4', name: 'Vinoth Kumar', email: 'vinoth@example.com', phone: '9000111222', college: 'PSG Tech', degree: 'B.Tech Product Design', year: 'Graduated', roleId: 'd1', roleTitle: 'UI/UX Design Intern', location: 'Coimbatore', linkedin: 'https://linkedin.com/in/vinoth', github: '', portfolio: 'https://behance.net/vinoth', resumeName: 'vinoth_ui_resume.pdf', motivation: 'Figma is my home. I design interfaces that make products look state-of-the-art.', startdate: '2026-07-01', status: 'Applied', date: '2026-06-28' },
+      { id: 'ap5', name: 'Bharani Dharan', email: 'bharani@example.com', phone: '8877665544', college: 'Loyola College', degree: 'B.Sc Visual Com', year: 'Graduated', roleId: 'm2', roleTitle: 'Social Media Marketing Intern', location: 'Chennai', linkedin: 'https://linkedin.com/in/bharani', github: '', portfolio: '', resumeName: 'bharani_resume.pdf', motivation: 'I create viral reels and write highly converting posts for Instagram/LinkedIn.', startdate: '2026-07-10', status: 'Rejected', date: '2026-06-24' }
+    ];
+
+    // Read store or load defaults
+    let internships = JSON.parse(localStorage.getItem('lk-internships')) || defaultInternships;
+    let applicants = JSON.parse(localStorage.getItem('lk-applicants')) || defaultApplicants;
+
+    function saveStore() {
+      localStorage.setItem('lk-internships', JSON.stringify(internships));
+      localStorage.setItem('lk-applicants', JSON.stringify(applicants));
+    }
+
+    // ── UI RENDERING & FILTERING ──
+    const grid = $('#internships-grid');
+    const searchInput = $('#search-role');
+    const deptFilter = $('#filter-dept');
+    const modeFilter = $('#filter-mode');
+    const durationFilter = $('#filter-duration');
+    const statusFilter = $('#filter-status');
+
+    function renderInternshipGrid() {
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      const query = searchInput.value.toLowerCase().trim();
+      const dept = deptFilter.value;
+      const mode = modeFilter.value;
+      const duration = durationFilter.value;
+      const status = statusFilter.value;
+
+      const filtered = internships.filter(job => {
+        // Keyword Search
+        const matchKeyword = job.title.toLowerCase().includes(query) || 
+                             job.skills.some(s => s.toLowerCase().includes(query)) ||
+                             job.dept.toLowerCase().includes(query);
+        // Category Filters
+        const matchDept = dept === 'all' || job.dept === dept;
+        const matchMode = mode === 'all' || job.mode === mode;
+        const matchDuration = duration === 'all' || job.duration === duration;
+        const matchStatus = status === 'all' || job.status === status;
+
+        return matchKeyword && matchDept && matchMode && matchDuration && matchStatus;
+      });
+
+      if (filtered.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <p style="font-weight:600; font-size: 0.95rem;">No internship roles match your criteria.</p>
+            <p style="font-size:0.8rem; margin-top:4px;">Try modifying your filters or search keywords.</p>
+          </div>
+        `;
+        return;
+      }
+
+      filtered.forEach(job => {
+        const appliedRoles = JSON.parse(localStorage.getItem('lk-applied-roles')) || [];
+        const isApplied = appliedRoles.includes(job.id);
+
+        const card = document.createElement('div');
+        card.className = 'job-card-c';
+        card.innerHTML = `
+          <div class="job-card-top">
+            <div class="job-card-header">
+              <span class="job-dept">${job.dept}</span>
+              <span class="job-badge ${job.status.toLowerCase()}">${job.status}</span>
+            </div>
+            <h3 class="job-title-c">${job.title}</h3>
+            <div class="job-meta-row">
+              <div class="job-meta-item">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span>${job.duration}</span>
+              </div>
+              <div class="job-meta-item">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                <span>${job.mode}</span>
+              </div>
+            </div>
+            <div class="job-skills-wrap">
+              ${job.skills.map(s => `<span class="skill-tag">${s}</span>`).join('')}
+            </div>
+          </div>
+          <div class="job-apply-row">
+            <span class="job-exp">${job.exp}</span>
+            ${job.status === 'Closed' 
+              ? `<button class="apply-btn-c disabled" disabled>Closed</button>`
+              : isApplied 
+                ? `<button class="apply-btn-c disabled" disabled>Applied ✓</button>`
+                : `<button class="apply-btn-c" onclick="openApplyModal('${job.id}')">Apply</button>`
+            }
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    // Set filter listeners
+    [searchInput, deptFilter, modeFilter, durationFilter, statusFilter].forEach(el => {
+      if (el) on(el, 'input', () => renderInternshipGrid());
+    });
+
+    // Simulate skeleton loading on startup
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        renderInternshipGrid();
+      }, 600);
+    });
+
+    // Scroll helpers
+    window.scrollToOpenings = function() {
+      const target = $('#openings-filter-row');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+
+    // ── TAB SELECTION CONTROLS ──
+    const tabBtnInterns = $('#tab-btn-interns');
+    const tabBtnJobs = $('#tab-btn-jobs');
+    const tabContentInterns = $('#tab-content-interns');
+    const tabContentJobs = $('#tab-content-jobs');
+    const tabContentAdmin = $('#tab-content-admin');
+
+    function deactivateAllTabs() {
+      [tabBtnInterns, tabBtnJobs].forEach(btn => btn && btn.classList.remove('active'));
+      [tabContentInterns, tabContentJobs, tabContentAdmin].forEach(c => c && c.classList.remove('active'));
+    }
+
+    if (tabBtnInterns) {
+      on(tabBtnInterns, 'click', () => {
+        deactivateAllTabs();
+        tabBtnInterns.classList.add('active');
+        tabContentInterns.classList.add('active');
+        renderInternshipGrid();
+      });
+    }
+
+    if (tabBtnJobs) {
+      on(tabBtnJobs, 'click', () => {
+        deactivateAllTabs();
+        tabBtnJobs.classList.add('active');
+        tabContentJobs.classList.add('active');
+      });
+    }
+
+    // ── APPLICATION FORM & MODAL ACTIONS ──
+    const applyModal = $('#apply-modal');
+    const applyForm = $('#apply-form');
+    const modalCloseBtn = $('#modal-close-btn');
+    const toast = $('#toast-message');
+    const toastText = $('#toast-text');
+
+    window.openApplyModal = function(roleId) {
+      const job = internships.find(j => j.id === roleId);
+      if (!job) return;
+
+      $('#su-role-id').value = job.id;
+      $('#su-role-display').value = job.title;
+      $('#modal-role-title').textContent = `Apply for ${job.title}`;
+      applyModal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    };
+
+    function closeApplyModal() {
+      applyModal.classList.remove('open');
+      applyForm.reset();
+      clearFormErrors();
+      document.body.style.overflow = '';
+    }
+
+    if (modalCloseBtn) on(modalCloseBtn, 'click', closeApplyModal);
+    on(applyModal, 'click', (e) => {
+      if (e.target === applyModal) closeApplyModal();
+    });
+
+    function showToast(message, type = 'success') {
+      if (!toast || !toastText) return;
+      toastText.textContent = message;
+      toast.className = `toast-notif show ${type}`;
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 4000);
+    }
+
+    function clearFormErrors() {
+      $$('.form-error').forEach(el => { el.textContent = ''; });
+      $$('.form-input').forEach(el => el.classList.remove('invalid'));
+    }
+
+    // Validate email
+    const isEmailValid = (e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+    // Validate URLs
+    const isUrlValid = (url) => {
+      if (!url) return true;
+      try { new URL(url); return true; } catch(_) { return false; }
+    };
+
+    applyForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      clearFormErrors();
+
+      const name = $('#su-name').value.trim();
+      const email = $('#su-email').value.trim();
+      const phone = $('#su-phone').value.trim();
+      const college = $('#su-college').value.trim();
+      const degree = $('#su-degree').value.trim();
+      const year = $('#su-year').value;
+      const location = $('#su-location').value.trim();
+      const linkedin = $('#su-linkedin').value.trim();
+      const github = $('#su-github').value.trim();
+      const portfolio = $('#su-portfolio').value.trim();
+      const resume = $('#su-resume');
+      const motivation = $('#su-motivation').value.trim();
+      const startdate = $('#su-startdate').value;
+      const agree = $('#su-agree').checked;
+
+      let valid = true;
+
+      if (!name) { $('#su-name-err').textContent = 'Please enter your full name.'; $('#su-name').classList.add('invalid'); valid = false; }
+      if (!email || !isEmailValid(email)) { $('#su-email-err').textContent = 'Please enter a valid email address.'; $('#su-email').classList.add('invalid'); valid = false; }
+      if (!phone || phone.length < 10) { $('#su-phone-err').textContent = 'Please enter a valid phone number.'; $('#su-phone').classList.add('invalid'); valid = false; }
+      if (!college) { $('#su-college-err').textContent = 'College name is required.'; $('#su-college').classList.add('invalid'); valid = false; }
+      if (!degree) { $('#su-degree-err').textContent = 'Degree program is required.'; $('#su-degree').classList.add('invalid'); valid = false; }
+      if (!year) { $('#su-year-err').textContent = 'Please select your academic year.'; $('#su-year').classList.add('invalid'); valid = false; }
+      if (!location) { $('#su-location-err').textContent = 'Please enter your current location.'; $('#su-location').classList.add('invalid'); valid = false; }
+      if (!motivation || motivation.length < 10) { $('#su-motivation-err').textContent = 'Please write at least a sentence explaining your motivation.'; $('#su-motivation').classList.add('invalid'); valid = false; }
+      if (!startdate) { $('#su-startdate-err').textContent = 'Select your availability date.'; $('#su-startdate').classList.add('invalid'); valid = false; }
+      if (!agree) { $('#su-agree-err').textContent = 'You must declare validation completeness.'; valid = false; }
+      
+      // Resume check
+      if (resume.files.length === 0) {
+        $('#su-resume-err').textContent = 'Please upload your resume PDF.';
+        resume.classList.add('invalid');
+        valid = false;
+      } else {
+        const file = resume.files[0];
+        if (file.type !== 'application/pdf') {
+          $('#su-resume-err').textContent = 'Only PDF format is supported.';
+          resume.classList.add('invalid');
+          valid = false;
+        } else if (file.size > 2 * 1024 * 1024) {
+          $('#su-resume-err').textContent = 'File size exceeds the 2MB limit.';
+          resume.classList.add('invalid');
+          valid = false;
+        }
+      }
+
+      // Link URLs checks
+      if (!isUrlValid(linkedin)) { $('#su-linkedin-err').textContent = 'Please enter a valid URL (include http/https).'; $('#su-linkedin').classList.add('invalid'); valid = false; }
+      if (!isUrlValid(github)) { $('#su-github-err').textContent = 'Please enter a valid URL (include http/https).'; $('#su-github').classList.add('invalid'); valid = false; }
+      if (!isUrlValid(portfolio)) { $('#su-portfolio-err').textContent = 'Please enter a valid URL (include http/https).'; $('#su-portfolio').classList.add('invalid'); valid = false; }
+
+      if (!valid) return;
+
+      const submitBtn = $('#apply-submit-btn');
+      submitBtn.classList.add('loading');
+      submitBtn.disabled = true;
+
+      // Simulate network save
+      setTimeout(() => {
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+
+        const roleId = $('#su-role-id').value;
+        const job = internships.find(j => j.id === roleId);
+
+        // Add application
+        const newApplicant = {
+          id: 'ap_' + Date.now(),
+          name,
+          email,
+          phone,
+          college,
+          degree,
+          year,
+          roleId,
+          roleTitle: job ? job.title : 'Intern',
+          location,
+          linkedin,
+          github,
+          portfolio,
+          resumeName: resume.files[0].name,
+          motivation,
+          startdate,
+          status: 'Applied',
+          date: new Date().toISOString().split('T')[0]
+        };
+
+        applicants.push(newApplicant);
+        
+        // Save applied state to local storage
+        const appliedRoles = JSON.parse(localStorage.getItem('lk-applied-roles')) || [];
+        appliedRoles.push(roleId);
+        localStorage.setItem('lk-applied-roles', JSON.stringify(appliedRoles));
+
+        saveStore();
+        closeApplyModal();
+        showToast('🎉 Your application was submitted successfully!');
+        renderInternshipGrid();
+        refreshAdminDashboard();
+      }, 1500);
+    });
+
+    // ── ADMIN CONSOLE LOGIC ──
+    const adminPortalLink = $('#admin-portal-link');
+    const adminAuthBox = $('#admin-auth-box');
+    const adminDashboardBox = $('#admin-dashboard-box');
+    const adminLoginForm = $('#admin-login-form');
+    const adminPassInput = $('#admin-password');
+    const adminAuthError = $('#admin-auth-error');
+
+    on(adminPortalLink, 'click', () => {
+      deactivateAllTabs();
+      tabContentAdmin.classList.add('active');
+      
+      const loggedIn = sessionStorage.getItem('lk-admin-logged');
+      if (loggedIn === 'true') {
+        adminAuthBox.style.display = 'none';
+        adminDashboardBox.style.display = 'block';
+        refreshAdminDashboard();
+      } else {
+        adminAuthBox.style.display = 'block';
+        adminDashboardBox.style.display = 'none';
+      }
+    });
+
+    adminLoginForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      adminAuthError.textContent = '';
+      if (adminPassInput.value === 'admin123') {
+        sessionStorage.setItem('lk-admin-logged', 'true');
+        adminAuthBox.style.display = 'none';
+        adminDashboardBox.style.display = 'block';
+        refreshAdminDashboard();
+      } else {
+        adminAuthError.textContent = 'Invalid access code. Please try again.';
+      }
+    });
+
+    // Sub-view toggling in Admin
+    const adminTabListings = $('#admin-tab-listings');
+    const adminTabApplicants = $('#admin-tab-applicants');
+    const adminViewListings = $('#admin-view-listings');
+    const adminViewApplicants = $('#admin-view-applicants');
+
+    if (adminTabListings && adminTabApplicants) {
+      on(adminTabListings, 'click', () => {
+        adminTabListings.classList.add('active');
+        adminTabApplicants.classList.remove('active');
+        adminViewListings.style.display = 'block';
+        adminViewApplicants.style.display = 'none';
+      });
+
+      on(adminTabApplicants, 'click', () => {
+        adminTabApplicants.classList.add('active');
+        adminTabListings.classList.remove('active');
+        adminViewListings.style.display = 'none';
+        adminViewApplicants.style.display = 'block';
+      });
+    }
+
+    function refreshAdminDashboard() {
+      // Calculate Stats
+      $('#admin-stat-total').textContent = internships.length;
+      $('#admin-stat-open').textContent = internships.filter(j => j.status === 'Open').length;
+      $('#admin-stat-applied').textContent = applicants.length;
+      $('#admin-stat-selected').textContent = applicants.filter(a => a.status === 'Selected').length;
+
+      // Fill Listings table
+      const listingsBody = $('#admin-listings-table-body');
+      listingsBody.innerHTML = '';
+      
+      const listSearch = $('#admin-listings-search').value.toLowerCase().trim();
+      const filteredListings = internships.filter(j => j.title.toLowerCase().includes(listSearch) || j.dept.toLowerCase().includes(listSearch));
+
+      filteredListings.forEach(job => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td style="font-weight:700;">${job.title}</td>
+          <td style="text-transform: capitalize;">${job.dept}</td>
+          <td>${job.mode}</td>
+          <td>${job.duration}</td>
+          <td><span class="job-badge ${job.status.toLowerCase()}">${job.status}</span></td>
+          <td style="text-align: center;">
+            <div style="display:flex; gap:6px; justify-content:center;">
+              <button class="admin-btn ghost" onclick="openEditRoleModal('${job.id}')">Edit</button>
+              <button class="admin-btn ghost" onclick="toggleHiringStatus('${job.id}')">${job.status === 'Open' ? 'Close' : 'Open'}</button>
+              <button class="admin-btn danger" onclick="deleteRole('${job.id}')">Delete</button>
+            </div>
+          </td>
+        `;
+        listingsBody.appendChild(row);
+      });
+
+      // Fill Applicants Table
+      const applicantsBody = $('#admin-applicants-table-body');
+      applicantsBody.innerHTML = '';
+
+      const appSearch = $('#admin-applicants-search').value.toLowerCase().trim();
+      const appRoleFilter = $('#admin-applicants-filter-role').value;
+      const appStatusFilter = $('#admin-applicants-filter-status').value;
+
+      // Populate unique applied roles in the filter dropdown dynamically
+      const filterRoleDropdown = $('#admin-applicants-filter-role');
+      const uniqueRoles = [...new Set(applicants.map(a => a.roleTitle))];
+      filterRoleDropdown.innerHTML = '<option value="all">All Roles</option>' + 
+        uniqueRoles.map(r => `<option value="${r}">${r}</option>`).join('');
+      filterRoleDropdown.value = appRoleFilter; // Restore selection
+
+      const filteredApplicants = applicants.filter(a => {
+        const matchKeyword = a.name.toLowerCase().includes(appSearch) || a.college.toLowerCase().includes(appSearch) || a.email.toLowerCase().includes(appSearch);
+        const matchRole = appRoleFilter === 'all' || a.roleTitle === appRoleFilter;
+        const matchStatus = appStatusFilter === 'all' || a.status === appStatusFilter;
+        return matchKeyword && matchRole && matchStatus;
+      });
+
+      filteredApplicants.forEach(app => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>
+            <div style="font-weight:700;">${app.name}</div>
+            <div style="font-size:0.75rem; color:var(--text-muted);">${app.email} · ${app.phone}</div>
+            <div style="font-size:0.75rem; color:var(--text-muted); font-style:italic;">${app.college} (${app.year})</div>
+          </td>
+          <td>${app.roleTitle}</td>
+          <td>
+            <select class="status-select" onchange="changeApplicantStatus('${app.id}', this.value)">
+              <option value="Applied" ${app.status === 'Applied' ? 'selected' : ''}>Applied</option>
+              <option value="Under Review" ${app.status === 'Under Review' ? 'selected' : ''}>Under Review</option>
+              <option value="Shortlisted" ${app.status === 'Shortlisted' ? 'selected' : ''}>Shortlisted</option>
+              <option value="Interview Scheduled" ${app.status === 'Interview Scheduled' ? 'selected' : ''}>Interview Scheduled</option>
+              <option value="Selected" ${app.status === 'Selected' ? 'selected' : ''}>Selected</option>
+              <option value="Rejected" ${app.status === 'Rejected' ? 'selected' : ''}>Rejected</option>
+            </select>
+          </td>
+          <td>${app.location}</td>
+          <td>${app.date}</td>
+          <td style="text-align: center;">
+            <div style="display:flex; gap:6px; justify-content:center;">
+              <button class="admin-btn ghost" onclick="downloadResume('${app.resumeName}')">PDF</button>
+              <button class="admin-btn ghost" onclick="openScheduleModal('${app.id}')">Call</button>
+              <button class="admin-btn primary" onclick="shortlistCandidate('${app.id}')">Shortlist</button>
+              <button class="admin-btn danger" onclick="rejectCandidate('${app.id}')">Reject</button>
+            </div>
+          </td>
+        `;
+        applicantsBody.appendChild(row);
+      });
+    }
+
+    // Set Admin input listeners
+    on($('#admin-listings-search'), 'input', refreshAdminDashboard);
+    on($('#admin-applicants-search'), 'input', refreshAdminDashboard);
+    on($('#admin-applicants-filter-role'), 'change', refreshAdminDashboard);
+    on($('#admin-applicants-filter-status'), 'change', refreshAdminDashboard);
+
+    // CRUD - Open status
+    window.toggleHiringStatus = function(roleId) {
+      const job = internships.find(j => j.id === roleId);
+      if (!job) return;
+      job.status = job.status === 'Open' ? 'Closed' : 'Open';
+      saveStore();
+      refreshAdminDashboard();
+      renderInternshipGrid();
+    };
+
+    // CRUD - Delete role
+    window.deleteRole = function(roleId) {
+      if (!confirm('Are you sure you want to delete this internship? This will hide it from listings.')) return;
+      internships = internships.filter(j => j.id !== roleId);
+      saveStore();
+      refreshAdminDashboard();
+      renderInternshipGrid();
+      showToast('🗑️ Internship listing removed.');
+    };
+
+    // CRUD - Create / Edit Role Modal
+    const roleModal = $('#role-modal');
+    const roleForm = $('#role-form');
+
+    window.openAddInternshipModal = function() {
+      roleForm.reset();
+      $('#role-form-id').value = '';
+      $('#role-modal-title').textContent = 'Add Internship Role';
+      roleModal.classList.add('open');
+    };
+
+    window.openEditRoleModal = function(roleId) {
+      const job = internships.find(j => j.id === roleId);
+      if (!job) return;
+
+      $('#role-form-id').value = job.id;
+      $('#rf-title').value = job.title;
+      $('#rf-dept').value = job.dept;
+      $('#rf-mode').value = job.mode;
+      $('#rf-duration').value = job.duration;
+      $('#rf-skills').value = job.skills.join(', ');
+      $('#rf-exp').value = job.exp;
+      $('#rf-status').value = job.status;
+
+      $('#role-modal-title').textContent = 'Edit Internship Role';
+      roleModal.classList.add('open');
+    };
+
+    window.closeRoleModal = function() {
+      roleModal.classList.remove('open');
+    };
+
+    roleForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = $('#role-form-id').value;
+      const title = $('#rf-title').value.trim();
+      const dept = $('#rf-dept').value;
+      const mode = $('#rf-mode').value;
+      const duration = $('#rf-duration').value;
+      const skillsStr = $('#rf-skills').value.trim();
+      const exp = $('#rf-exp').value.trim();
+      const status = $('#rf-status').value;
+
+      const skills = skillsStr.split(',').map(s => s.trim()).filter(Boolean);
+
+      if (id) {
+        // Edit Mode
+        const job = internships.find(j => j.id === id);
+        if (job) {
+          job.title = title;
+          job.dept = dept;
+          job.mode = mode;
+          job.duration = duration;
+          job.skills = skills;
+          job.exp = exp;
+          job.status = status;
+        }
+      } else {
+        // Add Mode
+        const newJob = {
+          id: 'role_' + Date.now(),
+          title,
+          dept,
+          mode,
+          duration,
+          skills,
+          exp,
+          status
+        };
+        internships.push(newJob);
+      }
+
+      saveStore();
+      closeRoleModal();
+      refreshAdminDashboard();
+      renderInternshipGrid();
+      showToast('💾 Internship role saved successfully.');
+    });
+
+    // CRUD - Applicants status change
+    window.changeApplicantStatus = function(appId, newStatus) {
+      const app = applicants.find(a => a.id === appId);
+      if (!app) return;
+      app.status = newStatus;
+      saveStore();
+      refreshAdminDashboard();
+      showToast(`Status updated for ${app.name}: ${newStatus}`);
+    };
+
+    window.shortlistCandidate = function(appId) {
+      changeApplicantStatus(appId, 'Shortlisted');
+    };
+
+    window.rejectCandidate = function(appId) {
+      changeApplicantStatus(appId, 'Rejected');
+    };
+
+    // Interview scheduler Modal
+    const scheduleModal = $('#schedule-modal');
+    window.openScheduleModal = function(appId) {
+      const app = applicants.find(a => a.id === appId);
+      if (!app) return;
+      $('#schedule-applicant-id').value = appId;
+      
+      // Default to tomorrow 10am
+      const tomorrow = new Date();
+      tomorrow.setDate(tomorrow.getDate() + 1);
+      tomorrow.setHours(10, 0, 0, 0);
+      const tomorrowStr = tomorrow.toISOString().slice(0, 16);
+      $('#int-date').value = tomorrowStr;
+
+      scheduleModal.classList.add('open');
+    };
+
+    window.closeScheduleModal = function() {
+      scheduleModal.classList.remove('open');
+    };
+
+    $('#schedule-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const appId = $('#schedule-applicant-id').value;
+      const date = $('#int-date').value;
+      
+      const app = applicants.find(a => a.id === appId);
+      if (app) {
+        app.status = 'Interview Scheduled';
+        app.interviewDate = date;
+        saveStore();
+        closeScheduleModal();
+        refreshAdminDashboard();
+        
+        // Format readable date
+        const formattedDate = new Date(date).toLocaleString();
+        showToast(`📅 Interview scheduled with ${app.name} at ${formattedDate}`);
+      }
+    });
+
+    // Mock Resume Download
+    window.downloadResume = function(resumeName) {
+      showToast(`📥 Mock download started: ${resumeName}`);
+      // Simulating a browser file download trigger
+      const link = document.createElement('a');
+      link.href = '#';
+      link.setAttribute('download', resumeName);
+      document.body.appendChild(link);
+      setTimeout(() => { link.click(); link.remove(); }, 200);
+    };
+
+    // Export CSV Mock download
+    window.exportApplicantsData = function() {
+      if (applicants.length === 0) {
+        showToast('No applicants to export.', 'error');
+        return;
+      }
+
+      showToast('📥 Mock export CSV started...');
+      
+      // Build mock CSV string
+      const headers = ['Candidate Name', 'Email', 'Phone', 'College', 'Degree', 'Applied Role', 'Status', 'Location', 'Applied Date'];
+      const rows = applicants.map(a => [
+        `"${a.name}"`,
+        `"${a.email}"`,
+        `"${a.phone}"`,
+        `"${a.college}"`,
+        `"${a.degree}"`,
+        `"${a.roleTitle}"`,
+        `"${a.status}"`,
+        `"${a.location}"`,
+        `"${a.date}"`
+      ]);
+      
+      const csvContent = "data:text/csv;charset=utf-8," + 
+        [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+
+      const encodedUri = encodeURI(csvContent);
+      const link = document.createElement('a');
+      link.setAttribute('href', encodedUri);
+      link.setAttribute('download', `leon_knight_applicants_${new Date().toISOString().split('T')[0]}.csv`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    };
+
+  </script>
+</body>
+</html>

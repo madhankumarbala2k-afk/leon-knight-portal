@@ -14,6 +14,810 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ── DASHBOARD VARIABLES ── */
+    :root {
+      --dash-bg: #F8FAFC;
+      --card-bg: #ffffff;
+      --card-border: #E2E8F0;
+      --card-shadow: 0 1px 3px rgba(0,0,0,0.02), 0 1px 2px rgba(0,0,0,0.01);
+      --outer-card-bg: #ffffff;
+      --outer-card-border: #E2E8F0;
+      --text-muted: #64748B;
+      --input-bg: #F8FAFC;
+      --scroll-thumb: #CBD5E1;
+      --accent-color: #2563EB;
+      --accent-hover: #1D4ED8;
+      --accent-light: #EFF6FF;
+      --text-dark: #0F172A;
+      --success-bg: #F0FDF4;
+      --success-text: #16A34A;
+      --error-bg: #FEF2F2;
+      --error-text: #DC2626;
+    }
+
+    [data-theme="dark"] {
+      --dash-bg: #0A0F1E;
+      --card-bg: #0F172A;
+      --card-border: #1E293B;
+      --card-shadow: 0 4px 6px -1px rgba(0,0,0,0.2), 0 2px 4px -1px rgba(0,0,0,0.1);
+      --outer-card-bg: #111827;
+      --outer-card-border: #1E293B;
+      --text-muted: #94A3B8;
+      --input-bg: #1E293B;
+      --scroll-thumb: #334155;
+      --accent-color: #3B82F6;
+      --accent-hover: #2563EB;
+      --accent-light: #1E3A8A;
+      --text-dark: #F8FAFC;
+      --success-bg: rgba(22,163,74,0.15);
+      --success-text: #4ADE80;
+      --error-bg: rgba(220,38,38,0.15);
+      --error-text: #F87171;
+    }
+
+    /* ── DASHBOARD WORKSPACE CONTAINER ── */
+    .dashboard-section {
+      background: var(--dash-bg);
+      transition: background var(--transition-slow);
+    }
+
+    /* Outer Wrapper Card enclosing all widgets */
+    .dashboard-outer-card {
+      background: var(--outer-card-bg);
+      border: 1px solid var(--outer-card-border);
+      border-radius: var(--radius-xl);
+      padding: 24px;
+      box-shadow: var(--card-shadow);
+      transition: all 0.4s ease;
+    }
+
+    /* Grid of 4 columns and 2 rows */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    /* Individual Card Style */
+    .widget-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.3s var(--transition), box-shadow 0.3s var(--transition), border-color 0.3s;
+      position: relative;
+      overflow: hidden;
+      min-height: 220px;
+    }
+
+    .widget-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.04);
+      border-color: var(--accent-color);
+    }
+
+    [data-theme="dark"] .widget-card:hover {
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+
+    /* Widget Header */
+    .widget-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .widget-title {
+      font-size: 0.825rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .widget-icon {
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+
+    .widget-card:hover .widget-icon {
+      color: var(--accent-color);
+    }
+
+    .widget-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* ── WIDGET SPECIFICS ── */
+
+    /* 1. Career Progress */
+    .progress-item {
+      margin-bottom: 16px;
+    }
+    .progress-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .progress-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 8px;
+      background: var(--input-bg);
+      border-radius: 99px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: 99px;
+      width: 0; /* Animated via JS */
+      transition: width 1.2s cubic-bezier(0.1, 0.8, 0.2, 1);
+    }
+
+    .progress-fill.blue {
+      background: var(--accent-color);
+    }
+
+    .progress-fill.dark {
+      background: var(--text-dark);
+    }
+
+    /* 2. AI Chat Assistant */
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      max-height: 130px;
+      margin-bottom: 12px;
+      padding-right: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: left;
+    }
+
+    .chat-messages::-webkit-scrollbar {
+      width: 4px;
+    }
+    .chat-messages::-webkit-scrollbar-thumb {
+      background: var(--scroll-thumb);
+      border-radius: 99px;
+    }
+
+    .chat-bubble {
+      padding: 8px 12px;
+      border-radius: var(--radius);
+      font-size: 0.8rem;
+      line-height: 1.4;
+      max-width: 90%;
+      word-wrap: break-word;
+      animation: bubbleAppear 0.3s ease forwards;
+    }
+
+    .chat-bubble.user {
+      background: var(--input-bg);
+      color: var(--text-dark);
+      align-self: flex-start;
+      border-bottom-left-radius: 2px;
+      border: 1px solid var(--card-border);
+    }
+
+    .chat-bubble.bot {
+      background: var(--accent-light);
+      color: var(--text-dark);
+      align-self: flex-start;
+      border-bottom-left-radius: 2px;
+      border: 1px solid rgba(37,99,235,0.1);
+    }
+
+    .typing-indicator {
+      display: flex;
+      gap: 4px;
+      padding: 8px 12px;
+      background: var(--accent-light);
+      border-radius: var(--radius);
+      align-self: flex-start;
+      border-bottom-left-radius: 2px;
+      display: none;
+    }
+
+    .typing-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--text-muted);
+      border-radius: 50%;
+      animation: bounce 1.4s infinite ease-in-out both;
+    }
+    .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+    .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+    .chat-input-row {
+      display: flex;
+      gap: 6px;
+      position: relative;
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      background: var(--input-bg);
+      color: var(--text-dark);
+      outline: none;
+      transition: all var(--transition);
+    }
+
+    .chat-input:focus {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 2px rgba(37,99,235,0.1);
+    }
+
+    .chat-send-btn {
+      padding: 8px 12px;
+      background: var(--accent-color);
+      color: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      transition: background var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+    }
+
+    .chat-send-btn:hover {
+      background: var(--accent-hover);
+    }
+
+    /* 3. Analytics Chart */
+    .chart-container-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .chart-tabs-row {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 12px;
+    }
+
+    .chart-tab-btn {
+      padding: 4px 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      background: transparent;
+      color: var(--text-muted);
+      transition: all var(--transition);
+      border: none;
+      cursor: pointer;
+    }
+
+    .chart-tab-btn.active {
+      background: var(--accent-light);
+      color: var(--accent-color);
+    }
+
+    .analytics-chart {
+      height: 100px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 8px;
+      padding-top: 10px;
+    }
+
+    .analytics-bar-wrap {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      position: relative;
+    }
+
+    .analytics-bar {
+      width: 100%;
+      background: var(--accent-color);
+      border-top-left-radius: 4px;
+      border-top-right-radius: 4px;
+      transition: height 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      cursor: pointer;
+      position: relative;
+      opacity: 0.85;
+    }
+
+    .analytics-bar:hover {
+      opacity: 1;
+      filter: brightness(1.05);
+    }
+
+    /* Bar tooltip overlay */
+    .bar-tooltip {
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%) scale(0.85);
+      background: var(--text-dark);
+      color: var(--bg);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 6px;
+      border-radius: 4px;
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .analytics-bar:hover .bar-tooltip {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+    }
+
+    /* 4. Job Recommendations */
+    .job-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .job-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 12px;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      transition: transform var(--transition), border-color var(--transition);
+    }
+
+    .job-item:hover {
+      transform: translateX(2px);
+      border-color: var(--accent-color);
+    }
+
+    .job-info {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 70%;
+      text-align: left;
+    }
+
+    .job-apply-btn {
+      color: var(--accent-color);
+      font-weight: 600;
+      background: transparent;
+      font-size: 0.75rem;
+      transition: all var(--transition);
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .job-apply-btn:hover {
+      background: var(--accent-light);
+    }
+
+    .job-apply-btn.applied {
+      color: var(--success-text);
+      background: var(--success-bg);
+      pointer-events: none;
+    }
+
+    /* 5. Tasks Checklists */
+    .task-list-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+    }
+
+    .task-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 120px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .task-list::-webkit-scrollbar {
+      width: 4px;
+    }
+    .task-list::-webkit-scrollbar-thumb {
+      background: var(--scroll-thumb);
+      border-radius: 99px;
+    }
+
+    .task-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.8rem;
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: color var(--transition);
+      padding: 4px 0;
+      text-align: left;
+    }
+
+    .task-checkbox {
+      width: 15px;
+      height: 15px;
+      border-radius: 4px;
+      border: 1.5px solid var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition);
+      flex-shrink: 0;
+      color: #ffffff;
+    }
+
+    .task-checkbox svg {
+      display: none;
+    }
+
+    .task-item.completed {
+      color: var(--text-muted);
+    }
+
+    .task-item.completed .task-checkbox {
+      background: var(--accent-color);
+      border-color: var(--accent-color);
+    }
+
+    .task-item.completed .task-checkbox svg {
+      display: block;
+    }
+
+    .task-item.completed .task-text {
+      text-decoration: line-through;
+    }
+
+    .task-input-row {
+      display: flex;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .task-add-btn {
+      width: 32px;
+      height: 32px;
+      background: var(--accent-color);
+      color: #ffffff;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition);
+      border: none;
+      cursor: pointer;
+    }
+
+    .task-add-btn:hover {
+      background: var(--accent-hover);
+    }
+
+    /* 6. Performance Report */
+    .perf-body {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex: 1;
+    }
+
+    .perf-grade-wrap {
+      display: flex;
+      flex-direction: column;
+      text-align: left;
+    }
+
+    .perf-grade {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .perf-grade-label {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    .perf-change {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      text-align: right;
+    }
+
+    .perf-change-value {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--success-text);
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .perf-change-period {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Performance Hover Breakdown Panel */
+    .perf-breakdown {
+      position: absolute;
+      inset: 0;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 8px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 2;
+    }
+
+    .widget-card.widget-performance:hover .perf-breakdown {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .breakdown-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      text-align: left;
+    }
+
+    .breakdown-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-dark);
+    }
+
+    .breakdown-score {
+      color: var(--accent-color);
+    }
+
+    /* 7. Notifications Widget */
+    .notif-container {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .notif-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 140px;
+      overflow-y: auto;
+      padding-right: 4px;
+    }
+
+    .notif-list::-webkit-scrollbar {
+      width: 4px;
+    }
+    .notif-list::-webkit-scrollbar-thumb {
+      background: var(--scroll-thumb);
+      border-radius: 99px;
+    }
+
+    .notif-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 10px;
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      font-size: 0.76rem;
+      font-weight: 500;
+      color: var(--text-dark);
+      transition: all 0.2s ease;
+      position: relative;
+      animation: notifAppear 0.3s ease;
+      text-align: left;
+    }
+
+    .notif-text {
+      padding-right: 12px;
+      line-height: 1.35;
+    }
+
+    .notif-dismiss {
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+      border-radius: 50%;
+      transition: background var(--transition), color var(--transition);
+      flex-shrink: 0;
+      border: none;
+      background: transparent;
+    }
+
+    .notif-dismiss:hover {
+      background: var(--border);
+      color: var(--text-dark);
+    }
+
+    .notif-empty {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: 100%;
+      color: var(--text-muted);
+      font-size: 0.8rem;
+      gap: 6px;
+      padding: 20px 0;
+    }
+
+    /* 8. Calendar Widget */
+    .calendar-wrap {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: space-between;
+    }
+
+    .calendar-days-header {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+      text-align: center;
+    }
+
+    .cal-day {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      padding: 6px 0;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      transition: all var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1;
+    }
+
+    .cal-day:hover {
+      background: var(--input-bg);
+      color: var(--accent-color);
+    }
+
+    .cal-day.active {
+      background: var(--accent-color);
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(37,99,235,0.25);
+    }
+
+    .cal-day.has-event {
+      position: relative;
+    }
+
+    .cal-day.has-event::after {
+      content: '';
+      position: absolute;
+      bottom: 2px;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--accent-color);
+    }
+
+    .cal-day.active.has-event::after {
+      background: #ffffff;
+    }
+
+    .calendar-event-display {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: var(--input-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-sm);
+      padding: 6px 10px;
+      margin-top: 10px;
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      transition: all var(--transition);
+    }
+
+    /* ── RESPONSIVE ADAPTATIONS ── */
+    @media (max-width: 1200px) {
+      .dashboard-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 900px) {
+      .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .dashboard-outer-card {
+        padding: 16px;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .dashboard-grid {
+        grid-template-columns: 1fr;
+      }
+      .dashboard-section {
+        padding: 20px 0 40px;
+      }
+      .dashboard-outer-card {
+        border-radius: var(--radius-lg);
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -66,7 +870,7 @@
         <li role="none"><a href="#dashboard" class="nav-link" role="menuitem">Dashboard</a></li>
         <li role="none"><a href="#about" class="nav-link" role="menuitem">About</a></li>
         <li role="none"><a href="#leadership" class="nav-link" role="menuitem">Leadership</a></li>
-        <li role="none"><a href="#careers" class="nav-link" role="menuitem">Careers</a></li>
+        <li role="none"><a href="careers.html" class="nav-link" role="menuitem">Careers</a></li>
         <li role="none"><a href="#blog" class="nav-link" role="menuitem">Blog</a></li>
         <li role="none"><a href="#contact" class="nav-link" role="menuitem">Contact</a></li>
       </ul>
@@ -96,7 +900,7 @@
       <li><a href="#dashboard" class="mobile-nav-link">Dashboard</a></li>
       <li><a href="#about" class="mobile-nav-link">About</a></li>
       <li><a href="#leadership" class="mobile-nav-link">Leadership</a></li>
-      <li><a href="#careers" class="mobile-nav-link">Careers</a></li>
+      <li><a href="careers.html" class="mobile-nav-link">Careers</a></li>
       <li><a href="#blog" class="mobile-nav-link">Blog</a></li>
       <li><a href="#contact" class="mobile-nav-link">Contact</a></li>
       <li><a href="login.html" class="btn-ghost mobile-login">Login</a></li>
@@ -326,157 +1130,284 @@
       </div>
     </section>
 
-    <!-- DASHBOARD PREVIEW -->
+    <!-- DASHBOARD SECTION -->
     <section id="dashboard" class="section dashboard-section">
       <div class="container">
         <div class="section-header" data-animate="fade-up">
-          <div class="section-badge">Platform</div>
-          <h2 class="section-title">Powerful Dashboard</h2>
-          <p class="section-sub">One unified workspace for all your AI tools, analytics, and progress — beautifully designed.</p>
+          <div class="section-badge">Dashboard</div>
+          <h2 class="section-title">One workspace for everything AI</h2>
+          <p class="section-sub">Career progress, AI assistant, analytics, tasks and reports — unified into one elegant dashboard.</p>
         </div>
-        <div class="dashboard-mockup" data-animate="fade-up">
-          <div class="mockup-bar">
-            <div class="mockup-dots"><span></span><span></span><span></span></div>
-            <div class="mockup-url">app.leon-knight.ai/dashboard</div>
-            <div class="mockup-icons">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-          </div>
-          <div class="mockup-content">
-            <!-- Sidebar -->
-            <div class="mockup-sidebar">
-              <div class="msb-logo"><img src="logo.jpg" alt="LK" style="width:28px;height:28px;object-fit:cover;border-radius:6px;" /></div>
-              <div class="msb-items">
-                <div class="msb-item active" title="Overview">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
-                  <span>Overview</span>
-                </div>
-                <div class="msb-item" title="Analytics">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-                  <span>Analytics</span>
-                </div>
-                <div class="msb-item" title="Career">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg>
-                  <span>Career</span>
-                </div>
-                <div class="msb-item" title="AI Assistant">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                  <span>AI Chat</span>
-                </div>
-                <div class="msb-item" title="Tasks">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-                  <span>Tasks</span>
-                </div>
-                <div class="msb-item" title="Calendar">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                  <span>Calendar</span>
-                </div>
-                <div class="msb-item" title="Settings">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                  <span>Settings</span>
+
+        <!-- Dashboard Outer Card Container -->
+        <div class="dashboard-outer-card" data-animate="fade-up">
+          <div class="dashboard-grid">
+
+            <!-- 1. Career Progress -->
+            <div class="widget-card widget-career">
+              <div class="widget-header">
+                <span class="widget-title">Career Progress</span>
+                <div class="widget-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
                 </div>
               </div>
-            </div>
-            <!-- Main area -->
-            <div class="mockup-main">
-              <div class="mockup-topbar">
-                <div>
-                  <div class="topbar-greeting">Good afternoon, Madhan 👋</div>
-                  <div class="topbar-sub">Here's your AI summary for today</div>
-                </div>
-                <div class="topbar-actions">
-                  <div class="notif-bell">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-                    <span class="notif-count">3</span>
+              <div class="widget-body">
+                <!-- AI/ML Track -->
+                <div class="progress-item">
+                  <div class="progress-label-row">
+                    <span>AI / ML Track</span>
+                    <span id="track-value">68%</span>
                   </div>
-                  <div class="user-avatar">MK</div>
+                  <div class="progress-track">
+                    <div class="progress-fill blue" id="track-bar" style="width: 0%;"></div>
+                  </div>
+                </div>
+                <!-- Aptitude -->
+                <div class="progress-item">
+                  <div class="progress-label-row">
+                    <span>Aptitude</span>
+                    <span id="apt-value">42%</span>
+                  </div>
+                  <div class="progress-track">
+                    <div class="progress-fill dark" id="apt-bar" style="width: 0%;"></div>
+                  </div>
                 </div>
               </div>
+            </div>
 
-              <!-- KPI Row -->
-              <div class="mockup-kpis">
-                <div class="kpi-card">
-                  <div class="kpi-icon blue"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
-                  <div class="kpi-val">94%</div>
-                  <div class="kpi-lbl">Career Score</div>
-                  <div class="kpi-change positive">↑ 12%</div>
-                </div>
-                <div class="kpi-card">
-                  <div class="kpi-icon purple"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-                  <div class="kpi-val">87/100</div>
-                  <div class="kpi-lbl">Resume Score</div>
-                  <div class="kpi-change positive">↑ 5pts</div>
-                </div>
-                <div class="kpi-card">
-                  <div class="kpi-icon green"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-                  <div class="kpi-val">24h</div>
-                  <div class="kpi-lbl">Study Time</div>
-                  <div class="kpi-change positive">↑ 3h</div>
-                </div>
-                <div class="kpi-card">
-                  <div class="kpi-icon orange"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
-                  <div class="kpi-val">12</div>
-                  <div class="kpi-lbl">AI Insights</div>
-                  <div class="kpi-change neutral">→ New</div>
+            <!-- 2. AI Chat Assistant -->
+            <div class="widget-card widget-ai">
+              <div class="widget-header">
+                <span class="widget-title">AI Chat Assistant</span>
+                <div class="widget-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
                 </div>
               </div>
+              <div class="widget-body">
+                <div class="chat-messages" id="chat-box">
+                  <div class="chat-bubble user">How do I prepare for a data role?</div>
+                  <div class="chat-bubble bot">Start with SQL, Python and stats — I'll plan it for you.</div>
+                  <div class="typing-indicator" id="chat-typing">
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                    <div class="typing-dot"></div>
+                  </div>
+                </div>
+                <form class="chat-input-row" id="chat-form">
+                  <input type="text" id="chat-input-text" class="chat-input" placeholder="Ask AI..." autocomplete="off" />
+                  <button type="submit" class="chat-send-btn" aria-label="Send message">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                  </button>
+                </form>
+              </div>
+            </div>
 
-              <!-- Chart + Activities -->
-              <div class="mockup-lower">
-                <div class="mockup-chart-wrap">
-                  <div class="chart-header-row">
-                    <span class="chart-title-text">Performance Graph</span>
-                    <div class="chart-tabs">
-                      <button class="chart-tab active">Week</button>
-                      <button class="chart-tab">Month</button>
+            <!-- 3. Analytics -->
+            <div class="widget-card widget-analytics">
+              <div class="widget-header">
+                <span class="widget-title">Analytics</span>
+                <div class="widget-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+                </div>
+              </div>
+              <div class="widget-body">
+                <div class="chart-container-card">
+                  <div class="chart-tabs-row">
+                    <button class="chart-tab-btn active" id="tab-week">Week</button>
+                    <button class="chart-tab-btn" id="tab-month">Month</button>
+                  </div>
+                  <div class="analytics-chart" id="bar-chart-container">
+                    <!-- Bars loaded via JS to accommodate data toggling -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. Job Recommendations -->
+            <div class="widget-card widget-jobs">
+              <div class="widget-header">
+                <span class="widget-title">Job Recommendations</span>
+                <div class="widget-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                </div>
+              </div>
+              <div class="widget-body">
+                <div class="job-list">
+                  <div class="job-item">
+                    <span class="job-info" title="ML Engineer - Bengaluru">ML Engineer - Bengaluru</span>
+                    <button class="job-apply-btn" onclick="applyJob('ML Engineer - Bengaluru', this)">Apply</button>
+                  </div>
+                  <div class="job-item">
+                    <span class="job-info" title="Data Analyst - Remote">Data Analyst - Remote</span>
+                    <button class="job-apply-btn" onclick="applyJob('Data Analyst - Remote', this)">Apply</button>
+                  </div>
+                  <div class="job-item">
+                    <span class="job-info" title="AI Intern - Chennai">AI Intern - Chennai</span>
+                    <button class="job-apply-btn" onclick="applyJob('AI Intern - Chennai', this)">Apply</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. Tasks -->
+            <div class="widget-card widget-tasks">
+              <div class="widget-header">
+                <span class="widget-title">Tasks</span>
+                <div class="widget-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+                </div>
+              </div>
+              <div class="widget-body">
+                <div class="task-list-container">
+                  <div class="task-list" id="task-list-box">
+                    <div class="task-item completed" onclick="toggleTask(this)">
+                      <div class="task-checkbox">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      </div>
+                      <span class="task-text">Finish SQL module</span>
+                    </div>
+                    <div class="task-item completed" onclick="toggleTask(this)">
+                      <div class="task-checkbox">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      </div>
+                      <span class="task-text">Submit resume v2</span>
+                    </div>
+                    <div class="task-item" onclick="toggleTask(this)">
+                      <div class="task-checkbox">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                      </div>
+                      <span class="task-text">Mock interview - Friday</span>
                     </div>
                   </div>
-                  <div class="big-chart-bars">
-                    <div class="bcb" style="height:50%"><span>M</span></div>
-                    <div class="bcb" style="height:75%"><span>T</span></div>
-                    <div class="bcb" style="height:60%"><span>W</span></div>
-                    <div class="bcb active" style="height:92%"><span>T</span></div>
-                    <div class="bcb" style="height:68%"><span>F</span></div>
-                    <div class="bcb" style="height:42%"><span>S</span></div>
-                    <div class="bcb" style="height:80%"><span>S</span></div>
-                  </div>
+                  <form class="task-input-row" id="task-form">
+                    <input type="text" id="task-input-text" class="chat-input" placeholder="Add task..." autocomplete="off" />
+                    <button type="submit" class="task-add-btn" aria-label="Add task">+</button>
+                  </form>
                 </div>
-                <div class="mockup-activities">
-                  <div class="act-title">Recent Activities</div>
-                  <div class="act-item">
-                    <div class="act-dot blue"></div>
-                    <div class="act-info"><div class="act-name">Resume analyzed</div><div class="act-time">2m ago</div></div>
-                  </div>
-                  <div class="act-item">
-                    <div class="act-dot purple"></div>
-                    <div class="act-info"><div class="act-name">Mock interview done</div><div class="act-time">1h ago</div></div>
-                  </div>
-                  <div class="act-item">
-                    <div class="act-dot green"></div>
-                    <div class="act-info"><div class="act-name">LMS Module complete</div><div class="act-time">3h ago</div></div>
-                  </div>
-                  <div class="act-item">
-                    <div class="act-dot orange"></div>
-                    <div class="act-info"><div class="act-name">Aptitude test scored 88%</div><div class="act-time">5h ago</div></div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- AI Chat Quick -->
-              <div class="mockup-ai-bar">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                <span>Ask AI anything about your career, resume, or studies…</span>
-                <button class="ai-send-btn">Send</button>
               </div>
             </div>
-          </div>
-        </div>
-        <div class="dashboard-cta" data-animate="fade-up">
-          <a href="#" class="btn-primary btn-lg">
-            Open Dashboard
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-          </a>
-        </div>
+
+            <!-- 6. Performance Report -->
+            <div class="widget-card widget-performance">
+              <div class="widget-header">
+                <span class="widget-title">Performance Report</span>
+                <div class="widget-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                </div>
+              </div>
+              <div class="widget-body">
+                <div class="perf-body">
+                  <div class="perf-grade-wrap">
+                    <span class="perf-grade">A-</span>
+                    <span class="perf-grade-label">Overall grade</span>
+                  </div>
+                  <div class="perf-change">
+                    <span class="perf-change-value">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+                      12%
+                    </span>
+                    <span class="perf-change-period">this month vs. last cycle</span>
+                  </div>
+                </div>
+                <!-- Hover Overlay Breakdown Panel -->
+                <div class="perf-breakdown">
+                  <div class="breakdown-title">Skill Breakdown</div>
+                  <div class="breakdown-row">
+                    <span>AI/ML Coding</span>
+                    <span class="breakdown-score">A</span>
+                  </div>
+                  <div class="breakdown-row">
+                    <span>Aptitude Reasoning</span>
+                    <span class="breakdown-score">B+</span>
+                  </div>
+                  <div class="breakdown-row">
+                    <span>ATS Resume Score</span>
+                    <span class="breakdown-score">A-</span>
+                  </div>
+                  <div class="breakdown-row">
+                    <span>Mock Interviews</span>
+                    <span class="breakdown-score">A</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 7. Notifications -->
+            <div class="widget-card widget-notifications">
+              <div class="widget-header">
+                <span class="widget-title">Notifications</span>
+                <div class="widget-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                </div>
+              </div>
+              <div class="widget-body">
+                <div class="notif-container">
+                  <div class="notif-list" id="notif-box">
+                    <div class="notif-item">
+                      <span class="notif-text">New interview slot available</span>
+                      <button class="notif-dismiss" onclick="dismissNotif(this)" aria-label="Dismiss notification">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                      </button>
+                    </div>
+                    <div class="notif-item">
+                      <span class="notif-text">Resume score improved to 92</span>
+                      <button class="notif-dismiss" onclick="dismissNotif(this)" aria-label="Dismiss notification">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                      </button>
+                    </div>
+                    <div class="notif-item">
+                      <span class="notif-text">3 jobs match your profile</span>
+                      <button class="notif-dismiss" onclick="dismissNotif(this)" aria-label="Dismiss notification">
+                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="notif-empty" id="notif-empty-state">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity: 0.7;"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                    <span>All caught up! 🎉</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 8. Calendar -->
+            <div class="widget-card widget-calendar">
+              <div class="widget-header">
+                <span class="widget-title">Calendar</span>
+                <div class="widget-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+              </div>
+              <div class="widget-body">
+                <div class="calendar-wrap">
+                  <div class="calendar-days-header">
+                    <span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span>
+                  </div>
+                  <div class="calendar-grid">
+                    <div class="cal-day" onclick="selectDate(1, this)">1</div>
+                    <div class="cal-day" onclick="selectDate(2, this)">2</div>
+                    <div class="cal-day has-event" onclick="selectDate(3, this)">3</div>
+                    <div class="cal-day" onclick="selectDate(4, this)">4</div>
+                    <div class="cal-day" onclick="selectDate(5, this)">5</div>
+                    <div class="cal-day" onclick="selectDate(6, this)">6</div>
+                    <div class="cal-day" onclick="selectDate(7, this)">7</div>
+                    <div class="cal-day" onclick="selectDate(8, this)">8</div>
+                    <div class="cal-day active has-event" onclick="selectDate(9, this)">9</div>
+                    <div class="cal-day" onclick="selectDate(10, this)">10</div>
+                    <div class="cal-day" onclick="selectDate(11, this)">11</div>
+                    <div class="cal-day has-event" onclick="selectDate(12, this)">12</div>
+                    <div class="cal-day" onclick="selectDate(13, this)">13</div>
+                    <div class="cal-day" onclick="selectDate(14, this)">14</div>
+                  </div>
+                  <div class="calendar-event-display" id="calendar-event-text">
+                    June 9: Mock interview with AI
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /.dashboard-grid -->
+        </div><!-- /.dashboard-outer-card -->
       </div>
     </section>
 
@@ -860,7 +1791,7 @@
               <div class="perk-item"><span class="perk-icon">🚀</span> Fast Career Growth</div>
               <div class="perk-item"><span class="perk-icon">🧠</span> Work on Real AI Products</div>
             </div>
-            <a href="#" class="btn-primary btn-lg" style="margin-top:2.5rem;">
+            <a href="careers.html" class="btn-primary btn-lg" style="margin-top:2.5rem;">
               View Open Positions
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
             </a>
@@ -1159,7 +2090,7 @@
               <li><a href="#about">About</a></li>
               <li><a href="#leadership">Leadership</a></li>
               <li><a href="#journey">Our Journey</a></li>
-              <li><a href="#careers">Careers</a></li>
+              <li><a href="careers.html">Careers</a></li>
               <li><a href="#blog">Blog</a></li>
               <li><a href="#contact">Contact</a></li>
             </ul>

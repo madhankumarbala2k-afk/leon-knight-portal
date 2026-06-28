@@ -111,7 +111,7 @@ const off = (el, ev, fn) => el && el.removeEventListener(ev, fn);
     { title: 'Dashboard', sub: 'Your unified AI workspace', href: '#dashboard' },
     { title: 'About LEON-KNIGHT', sub: 'Company information', href: '#about' },
     { title: 'Leadership Team', sub: 'Meet our founders', href: '#leadership' },
-    { title: 'Careers', sub: 'Join our team', href: '#careers' },
+    { title: 'Careers', sub: 'Join our team', href: 'careers.html' },
     { title: 'Blog', sub: 'Insights & updates', href: '#blog' },
     { title: 'Contact', sub: 'Get in touch', href: '#contact' },
     { title: 'FAQ', sub: 'Frequently asked questions', href: '#faq' },
@@ -390,6 +390,281 @@ on(document, 'click', e => {
       card.style.transform = '';
     });
   });
+})();
+// ─── DASHBOARD INTERACTION SYSTEM ────────────────────────
+(function initDashboard() {
+  // Career progress animation via intersection observer
+  const dashboardSection = $('#dashboard');
+  if (!dashboardSection) return;
+
+  const trackBar = $('#track-bar');
+  const aptBar = $('#apt-bar');
+  if (trackBar && aptBar) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            trackBar.style.width = '68%';
+            aptBar.style.width = '42%';
+          }, 300);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    observer.observe(dashboardSection);
+  }
+
+  // AI Chat
+  const chatForm = $('#chat-form');
+  const chatInput = $('#chat-input-text');
+  const chatBox = $('#chat-box');
+  const typingIndicator = $('#chat-typing');
+
+  const chatbotReplies = {
+    hello: "Hi Madhan! How can I assist you with your AI career preparation today?",
+    hi: "Hi Madhan! How can I assist you with your AI career preparation today?",
+    resume: "Your current resume score is 87/100. I recommend adding details about your latest AI models/projects to raise it above 90.",
+    interview: "Your AI mock interview is set for Friday. Would you like to review Python algorithms or system design guidelines?",
+    jobs: "I've suggested 3 new positions (ML Engineer, Data Analyst, AI Intern). You can view details and apply in the Job Recommendations widget.",
+    sql: "To master SQL, focus on window functions, CTEs, and query optimization indices. We have modules ready on the LMS tab.",
+    analytics: "Your progress metrics are looking strong! Career score is up by 12% compared to last cycle.",
+  };
+
+  if (chatForm && chatInput && chatBox && typingIndicator) {
+    on(chatForm, 'submit', (e) => {
+      e.preventDefault();
+      const text = chatInput.value.trim();
+      if (!text) return;
+
+      const userBubble = document.createElement('div');
+      userBubble.className = 'chat-bubble user';
+      userBubble.textContent = text;
+      chatBox.insertBefore(userBubble, typingIndicator);
+      chatInput.value = '';
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      typingIndicator.style.display = 'flex';
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      setTimeout(() => {
+        typingIndicator.style.display = 'none';
+        const botBubble = document.createElement('div');
+        botBubble.className = 'chat-bubble bot';
+
+        const lowerText = text.toLowerCase();
+        let reply = "That's a great question! I recommend focusing on SQL queries, Python libraries, and stats. Let me know if you'd like a structured study path.";
+        
+        for (const [key, value] of Object.entries(chatbotReplies)) {
+          if (lowerText.includes(key)) {
+            reply = value;
+            break;
+          }
+        }
+
+        botBubble.textContent = reply;
+        chatBox.insertBefore(botBubble, typingIndicator);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 1000 + Math.random() * 800);
+    });
+  }
+
+  // Analytics Charts Week/Month toggling
+  const chartContainer = $('#bar-chart-container');
+  const tabWeek = $('#tab-week');
+  const tabMonth = $('#tab-month');
+
+  const chartData = {
+    week: [
+      { label: 'M', val: '30%', score: '30%' },
+      { label: 'T', val: '60%', score: '60%' },
+      { label: 'W', val: '50%', score: '50%' },
+      { label: 'T', val: '85%', score: '85%' },
+      { label: 'F', val: '65%', score: '65%' },
+      { label: 'S', val: '75%', score: '75%' }
+    ],
+    month: [
+      { label: 'W1', val: '70%', score: '70%' },
+      { label: 'W2', val: '45%', score: '45%' },
+      { label: 'W3', val: '80%', score: '80%' },
+      { label: 'W4', val: '55%', score: '55%' },
+      { label: 'W5', val: '90%', score: '90%' },
+      { label: 'W6', val: '60%', score: '60%' }
+    ]
+  };
+
+  function renderChart(type) {
+    if (!chartContainer) return;
+    chartContainer.innerHTML = '';
+    const items = chartData[type];
+    items.forEach(item => {
+      const wrap = document.createElement('div');
+      wrap.className = 'analytics-bar-wrap';
+
+      const bar = document.createElement('div');
+      bar.className = 'analytics-bar';
+      bar.style.height = '0%';
+
+      const tooltip = document.createElement('span');
+      tooltip.className = 'bar-tooltip';
+      tooltip.textContent = `${item.label}: ${item.score}`;
+      bar.appendChild(tooltip);
+
+      wrap.appendChild(bar);
+      chartContainer.appendChild(wrap);
+
+      setTimeout(() => {
+        bar.style.height = item.val;
+      }, 50);
+    });
+  }
+
+  if (tabWeek && tabMonth) {
+    on(tabWeek, 'click', () => {
+      tabWeek.classList.add('active');
+      tabMonth.classList.remove('active');
+      renderChart('week');
+    });
+    on(tabMonth, 'click', () => {
+      tabMonth.classList.add('active');
+      tabWeek.classList.remove('active');
+      renderChart('month');
+    });
+  }
+  renderChart('week');
+
+  // Job recommendations application status
+  window.applyJob = function(jobTitle, btn) {
+    if (btn.classList.contains('applied')) return;
+    btn.textContent = 'Applied ✓';
+    btn.className = 'job-apply-btn applied';
+    btn.disabled = true;
+    addNotification(`Application submitted for ${jobTitle.split(' - ')[0]}!`);
+  };
+
+  // Notifications Alert Panel dismissal and counts updates
+  const notifBox = $('#notif-box');
+  const emptyState = $('#notif-empty-state');
+  const navBadge = $('#nav-badge-count');
+
+  function updateBadgeCount() {
+    if (!notifBox || !emptyState) return;
+    const activeNotifs = notifBox.querySelectorAll('.notif-item').length;
+    if (activeNotifs > 0) {
+      if (navBadge) {
+        navBadge.style.display = 'flex';
+        navBadge.textContent = activeNotifs;
+      }
+      emptyState.style.display = 'none';
+      notifBox.style.display = 'flex';
+    } else {
+      if (navBadge) {
+        navBadge.style.display = 'none';
+      }
+      emptyState.style.display = 'flex';
+      notifBox.style.display = 'none';
+    }
+  }
+
+  window.dismissNotif = function(btn) {
+    const item = btn.closest('.notif-item');
+    if (!item) return;
+    item.style.opacity = '0';
+    item.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      item.remove();
+      updateBadgeCount();
+    }, 200);
+  };
+
+  function addNotification(text) {
+    if (!notifBox) return;
+    const item = document.createElement('div');
+    item.className = 'notif-item';
+
+    const textSpan = document.createElement('span');
+    textSpan.className = 'notif-text';
+    textSpan.textContent = text;
+    item.appendChild(textSpan);
+
+    const dismissBtn = document.createElement('button');
+    dismissBtn.className = 'notif-dismiss';
+    dismissBtn.setAttribute('aria-label', 'Dismiss notification');
+    dismissBtn.onclick = function() { dismissNotif(this); };
+    dismissBtn.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+    item.appendChild(dismissBtn);
+
+    notifBox.insertBefore(item, notifBox.firstChild);
+    updateBadgeCount();
+
+    if (navBadge) {
+      navBadge.style.transform = 'scale(1.3)';
+      setTimeout(() => { navBadge.style.transform = 'scale(1)'; }, 300);
+    }
+  }
+
+  updateBadgeCount();
+
+  // Tasks checklist toggle and custom task addition
+  window.toggleTask = function(element) {
+    element.classList.toggle('completed');
+  };
+
+  const taskBox = $('#task-list-box');
+  const taskForm = $('#task-form');
+  const taskInput = $('#task-input-text');
+
+  if (taskForm && taskInput && taskBox) {
+    on(taskForm, 'submit', (e) => {
+      e.preventDefault();
+      const text = taskInput.value.trim();
+      if (!text) return;
+
+      const item = document.createElement('div');
+      item.className = 'task-item';
+      item.onclick = function() { toggleTask(this); };
+
+      const checkbox = document.createElement('div');
+      checkbox.className = 'task-checkbox';
+      checkbox.innerHTML = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+      item.appendChild(checkbox);
+
+      const textSpan = document.createElement('span');
+      textSpan.className = 'task-text';
+      textSpan.textContent = text;
+      item.appendChild(textSpan);
+
+      taskBox.appendChild(item);
+      taskInput.value = '';
+      taskBox.scrollTop = taskBox.scrollHeight;
+    });
+  }
+
+  // Calendar select day scheduler
+  const calendarEventText = $('#calendar-event-text');
+  const eventDates = {
+    3: 'June 3: Resume feedback session with AI Coach',
+    9: 'June 9: Mock interview with AI',
+    12: 'June 12: ML Engineer Interview Preparation'
+  };
+
+  window.selectDate = function(day, element) {
+    $$('.cal-day').forEach(dayEl => dayEl.classList.remove('active'));
+    element.classList.add('active');
+
+    if (!calendarEventText) return;
+    if (eventDates[day]) {
+      calendarEventText.textContent = eventDates[day];
+      calendarEventText.style.borderColor = 'var(--accent-color)';
+      calendarEventText.style.background = 'var(--accent-light)';
+      calendarEventText.style.color = 'var(--accent-color)';
+    } else {
+      calendarEventText.textContent = `June ${day}: No events scheduled`;
+      calendarEventText.style.borderColor = 'var(--card-border)';
+      calendarEventText.style.background = 'var(--input-bg)';
+      calendarEventText.style.color = 'var(--text-muted)';
+    }
+  };
+
 })();
 
 // ─── PERFORMANCE: PASSIVE LISTENERS ─────────────────────
